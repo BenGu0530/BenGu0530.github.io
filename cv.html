@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ben Gu — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f5ef;
+    --ink: #171615;
+    --muted: #6b655a;
+    --line: #d8d2c3;
+    --accent: #c44536;
+    --card: #efece2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; font-size: 14.5px; line-height: 1.55; }
+  a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line); }
+  a:hover { color: var(--accent); border-color: var(--accent); }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  .topbar { border-bottom: 1px solid var(--line); padding: 14px 40px; display: flex; justify-content: space-between; align-items: center; }
+  .topbar a { border: none; }
+  .topbar .back { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .topbar .back:hover { color: var(--accent); }
+  .topbar .actions { display: flex; gap: 8px; }
+  .topbar .btn { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 12px; border: 1px solid var(--ink); cursor: pointer; background: transparent; color: var(--ink); }
+  .topbar .btn:hover { background: var(--ink); color: var(--bg); }
+  .topbar .btn.primary { background: var(--ink); color: var(--bg); }
+
+  .page { max-width: 820px; margin: 0 auto; padding: 48px 60px 80px; background: var(--bg); }
+
+  header.cv-head { border-bottom: 2px solid var(--ink); padding-bottom: 18px; margin-bottom: 28px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end; }
+  header.cv-head h1 { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 52px; letter-spacing: -0.02em; margin: 0 0 4px; line-height: 1; }
+  header.cv-head .sub { color: var(--muted); font-size: 14px; }
+  header.cv-head .contact { font-size: 13px; text-align: right; line-height: 1.8; }
+
+  h2.sect { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; margin: 36px 0 14px; color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 6px; }
+
+  .entry { margin-bottom: 18px; }
+  .entry .row { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: baseline; }
+  .entry .title { font-weight: 600; font-size: 15px; }
+  .entry .title em { font-style: italic; font-weight: 400; color: var(--muted); }
+  .entry .dates { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.04em; white-space: nowrap; }
+  .entry .role { color: var(--muted); font-size: 13.5px; margin-top: 2px; }
+  .entry ul { margin: 8px 0 0; padding-left: 20px; font-size: 13.5px; }
+  .entry ul li { margin-bottom: 4px; }
+  .entry .publ { font-size: 13px; color: var(--accent); font-style: italic; margin-top: 6px; }
+
+  .kv { display: grid; grid-template-columns: 180px 1fr; gap: 10px 16px; font-size: 13.5px; }
+  .kv .k { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.05em; color: var(--muted); text-transform: uppercase; padding-top: 3px; }
+  .kv .v { }
+  .kv .v span { display: inline-block; margin-right: 4px; padding: 2px 7px; background: var(--card); font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.04em; margin-bottom: 4px; }
+
+  .awards-list { font-size: 13.5px; margin: 0; padding-left: 20px; }
+  .awards-list li { margin-bottom: 3px; }
+
+  .course-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; font-size: 13px; }
+  .course-grid div::before { content: '·'; color: var(--accent); margin-right: 6px; }
+
+  footer { text-align: center; margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  @media print {
+    .topbar { display: none; }
+    .page { max-width: none; padding: 20px 40px; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <a href="index.html" class="back">← Back to portfolio</a>
+    <div class="actions">
+      <button class="btn" onclick="window.print()">Print / PDF</button>
+      <a href="uploads/BenGuResume.pdf" class="btn primary" download>Download PDF</a>
+    </div>
+  </div>
+
+  <div class="page">
+    <header class="cv-head">
+      <div>
+        <h1>Ben Gu</h1>
+        <div class="sub">Curriculum Vitae · Updated April 2026</div>
+      </div>
+      <div class="contact">
+        <div>(646) 647-4298</div>
+        <div><a href="/cdn-cgi/l/email-protection#8eecebe0e9fbceefe0eafcebf9a0ede3fba0ebeafb"><span class="__cf_email__" data-cfemail="9af8fff4fdefdafbf4fee8ffedb4f9f7efb4fffeef">[email&#160;protected]</span></a></div>
+        <div><a href="https://www.linkedin.com/in/bengurobotics/">linkedin.com/in/bengurobotics</a></div>
+        <div><a href="https://github.com/BenGu0530">github.com/BenGu0530</a></div>
+      </div>
+    </header>
+
+    <h2 class="sect">Education</h2>
+    <div class="entry">
+      <div class="row">
+        <div class="title">Carnegie Mellon University <em>— Pittsburgh, PA</em></div>
+        <div class="dates">Aug 2025 – May 2027</div>
+      </div>
+      <div class="role">M.S. in Robotics · GPA 4.0 / 4.0</div>
+    </div>
+    <div class="entry">
+      <div class="row">
+        <div class="title">Carnegie Mellon University <em>— Pittsburgh, PA</em></div>
+        <div class="dates">Aug 2022 – May 2025</div>
+      </div>
+      <div class="role">B.S. in Mechanical Engineering · GPA 4.0 / 4.0</div>
+    </div>
+
+    <h2 class="sect">Awards &amp; Honors</h2>
+    <ul class="awards-list">
+      <li>CIT Leadership and Service Award</li>
+      <li>CIT Honor Research</li>
+      <li>SURF Spotlight Researcher</li>
+    </ul>
+
+    <h2 class="sect">Research</h2>
+    <div class="entry">
+      <div class="row">
+        <div class="title">Self-Stabilizing Penguin-inspired Bipedal Robot for Low-Friction Slopes</div>
+        <div class="dates">May 2025 – Present</div>
+      </div>
+      <div class="role">Research Assistant, Robomechanics Lab · PI: Prof. Aaron Johnson</div>
+      <ul>
+        <li>Modeled and fabricated a 3D model of a 5-DOF bipedal robot in SolidWorks, implementing a crank-link leg extension system capturing macaroni penguin biological inertial properties for energy-efficient waddling.</li>
+        <li>Developed a CPG-RL framework to create stable, biomimetic walking gaits; integrated closed-chain constraints to optimize locomotion on low-friction, inclined surfaces.</li>
+        <li>Developed digital twins in MuJoCo and NVIDIA Isaac Lab to validate contact-rich dynamics and closed-loop control policies in challenging environments.</li>
+        <li>Developed an experimental testbed for evaluating locomotion; conducted motion-capture experiments on viscous and slippery substrates.</li>
+      </ul>
+      <div class="publ">→ Target: Lead author, ICRA 2027 (Seoul) · First-author workshop, ICRA 2026 (Vienna)</div>
+    </div>
+
+    <div class="entry">
+      <div class="row">
+        <div class="title">Design and Control for Mugatu: A Minimally-Actuated Steerable Bipedal Robot</div>
+        <div class="dates">Dec 2023 – Present</div>
+      </div>
+      <div class="role">Research Assistant, Robomechanics Lab · PI: Prof. Aaron Johnson</div>
+      <ul>
+        <li>Engineered a PID attitude controller for the first steerable single-motor biped, enabling directional control.</li>
+        <li>Conducted 2D contact dynamics analysis in MATLAB to investigate limit cycle stability and optimize gait efficiency.</li>
+        <li>Validated non-linear dynamics and steering manifolds using Drake and MuJoCo to bridge theoretical stability, simulation, and physical execution.</li>
+      </ul>
+      <div class="publ">→ "Allometric Scaling Laws for Bipedal Robots" · Submitted IROS 2026 · arXiv:2603.22560 · GRC Robotics 2026, NCUR 2025, CMU MOTM 2025</div>
+    </div>
+
+    <h2 class="sect">Projects</h2>
+    <div class="entry">
+      <div class="row">
+        <div class="title">Hybrid Locomotion for Unitree Go2-W in Agriculture Environments</div>
+        <div class="dates">Jan 2026 – Present</div>
+      </div>
+      <div class="role">Course Project · Robotics &amp; AI for Agriculture · Profs. George Kantor &amp; Francisco Yandun</div>
+      <ul>
+        <li>Implementing a PPO-based RL policy in NVIDIA Isaac Lab for adaptive wheel-leg switching on the Go2-W.</li>
+        <li>Training robust navigation in procedurally generated off-road terrains with multi-crop row constraints.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="row">
+        <div class="title">MPPI-Based Autonomous High-Speed Drone Racing</div>
+        <div class="dates">Jan 2026 – Present</div>
+      </div>
+      <div class="role">Course Project · Mobile Robots · Prof. Wennie Tabib</div>
+      <ul>
+        <li>Developed an MPPI controller for a 17-state quadrotor model to achieve real-time, aggressive gate navigation.</li>
+        <li>Optimized trajectories in PyBullet by sampling control inputs to balance high velocity and collision avoidance.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="row">
+        <div class="title">Sim-to-Real RL: Autonomous Quadrotor Landing</div>
+        <div class="dates">Aug 2025 – Jan 2026</div>
+      </div>
+      <div class="role">Course Project · Robot Learning · Prof. Guanya Shi</div>
+      <ul>
+        <li>Synthesized a PPO controller with 4096 parallel agents; designed a curriculum-learning scheme with exp reward scaling for precision landing on moving targets (&lt;4 cm error).</li>
+        <li>Mitigated the sim-to-real gap via domain randomization — 96% success rate on Crazyflie 2.1+ hardware.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="row">
+        <div class="title">MPC-based Gait Transition for Unitree A1</div>
+        <div class="dates">Jan 2024 – May 2024</div>
+      </div>
+      <div class="role">Course Project · Optimal Control and Reinforcement Learning · Prof. Zachary Manchester</div>
+      <ul>
+        <li>Developed a RL and LQR-based controller for seamless transitions between 3 distinct gaits within 2 seconds.</li>
+        <li>Optimized multi-contact locomotion using contact-implicit trajectory optimization in MuJoCo.</li>
+      </ul>
+    </div>
+
+    <h2 class="sect">Publications</h2>
+    <div class="entry">
+      <div class="title"><strong>B. Gu, et al.</strong> "Allometric Scaling Laws for Bipedal Robots."</div>
+      <div class="role">Submitted, IROS 2026 · arXiv:2603.22560</div>
+    </div>
+    <div class="entry">
+      <div class="title"><strong>B. Gu, et al.</strong> "Penguin-inspired Biped for Low-Friction Slopes."</div>
+      <div class="role">Workshop, ICRA 2026 (Vienna) · Accepted</div>
+    </div>
+    <div class="entry">
+      <div class="title"><strong>B. Gu, et al.</strong> "Self-Stabilizing Penguin-inspired Bipedal Locomotion."</div>
+      <div class="role">In preparation — ICRA 2027 (Seoul)</div>
+    </div>
+
+    <h2 class="sect">Skills</h2>
+    <div class="kv">
+      <div class="k">Programming</div>
+      <div class="v">
+        <span>Python</span><span>C++</span><span>C</span><span>MATLAB</span><span>Julia</span><span>Assembly</span><span>Bash</span><span>LaTeX</span>
+      </div>
+      <div class="k">Robotics &amp; Sim</div>
+      <div class="v">
+        <span>Isaac Lab</span><span>MuJoCo</span><span>Drake</span><span>MJPC</span><span>Dojo</span><span>ROS2</span><span>PPO</span><span>DQN</span><span>CPG</span><span>LQR</span><span>MPC</span><span>MPPI</span>
+      </div>
+      <div class="k">Design &amp; Fab</div>
+      <div class="v">
+        <span>SolidWorks</span><span>AutoCAD</span><span>Blender</span><span>OnShape</span><span>ANSYS / FEA</span><span>GibbsCam</span><span>MeshLab</span><span>CNC</span><span>Mill</span><span>Lathe</span><span>Laser Cutter</span><span>Water Jet</span><span>3D Printing</span>
+      </div>
+    </div>
+
+    <h2 class="sect">Relevant Coursework</h2>
+    <div class="course-grid">
+      <div>Optimal Control and Reinforcement Learning</div>
+      <div>Robot Learning</div>
+      <div>Feedback Control Systems</div>
+      <div>Soft Robotics Modeling</div>
+      <div>Robotics &amp; AI for Agriculture</div>
+      <div>Mobile Robots</div>
+      <div>Legged Systems</div>
+    </div>
+
+    <footer>Ben Gu · CV · April 2026 · Pittsburgh, PA</footer>
+  </div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

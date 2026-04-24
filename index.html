@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--
+  ASSET STRUCTURE:
+  assets/           ← production assets committed to repo
+    headshot.jpg
+    MPPI_thumb.jpg
+    MPPI.gif
+    go2w.gif
+  uploads/          ← scratch/working files, do not reference in production HTML
+
+  TO ADD A NEW GIF: place it in assets/ and reference as src="assets/yourfile.gif"
+-->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ben Gu — Robotics @ CMU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f5ef;
+    --ink: #171615;
+    --muted: #6b655a;
+    --line: #d8d2c3;
+    --accent: #c44536;
+    --card: #efece2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; font-size: 15px; line-height: 1.55; }
+  a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line); transition: border-color .15s, color .15s; }
+  a:hover { border-color: var(--accent); color: var(--accent); }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+  /* ============ HERO (full-width walker) ============ */
+  .hero {
+    width: 100%;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-inner { height: 260px; width: 100%; position: relative; cursor: default; }
+  .hero-inner.dragging { cursor: grabbing; }
+  .hero-svg { width: 100%; height: 100%; display: block; user-select: none; }
+  .walker-body { cursor: grab; }
+  .walker-body:active { cursor: grabbing; }
+  .hero-hint {
+    position: absolute; bottom: 10px; right: 14px; pointer-events: none;
+    font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); opacity: 0.7;
+  }
+
+  /* ============ LAYOUT ============ */
+  .wrap { display: grid; grid-template-columns: 280px 1fr; gap: 64px; max-width: 1100px; margin: 0 auto; padding: 48px 56px; }
+  .rail { position: sticky; top: 48px; align-self: start; }
+  .headshot { width: 180px; height: 240px; border-radius: 4px; object-fit: cover; object-position: center top; filter: saturate(0.9) contrast(1.02); display: block; }
+  h1 { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.05; letter-spacing: -0.01em; margin: 20px 0 4px; }
+  .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+  .contact { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; margin-top: 20px; }
+  .contact .row { display: flex; gap: 10px; align-items: baseline; }
+  .contact .label { color: var(--muted); width: 52px; flex-shrink: 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  section { margin-bottom: 56px; }
+  h2 { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 26px; letter-spacing: -0.01em; margin: 0 0 20px; border-bottom: 1px solid var(--line); padding-bottom: 8px; display: flex; align-items: baseline; justify-content: space-between; }
+  h2 .count { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; }
+  p { margin: 0 0 12px; }
+
+  .interests { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .chip { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; padding: 3px 9px; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); }
+
+  .news-row { display: grid; grid-template-columns: 90px 1fr; gap: 16px; padding: 12px 0; border-top: 1px solid var(--line); }
+  .news-row:last-child { border-bottom: 1px solid var(--line); }
+  .news-row .date { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.05em; padding-top: 2px; }
+
+  /* ============ PROJECT CARDS (image on top, text below) ============ */
+  .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .proj-card {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--line); border-radius: 2px;
+    background: var(--bg);
+    overflow: hidden;
+    transition: border-color .2s, transform .2s;
+  }
+  .proj-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .proj-card .thumb {
+    aspect-ratio: 16/10;
+    background: var(--card);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px; color: var(--muted); letter-spacing: 0.12em;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+  .proj-card .thumb::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(45deg, transparent 0 6px, rgba(23,22,21,0.04) 6px 7px);
+  }
+  .proj-card .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 1; }
+  .proj-card .thumb.has-img::before { display: none; }
+  .proj-card .thumb .placeholder { position: relative; z-index: 1; }
+  .proj-card .body { padding: 18px 20px 20px; }
+  .proj-card .title { font-weight: 600; font-size: 16px; margin-bottom: 4px; letter-spacing: -0.005em; }
+  .proj-card .meta { color: var(--muted); font-size: 12.5px; margin-bottom: 10px; }
+  .proj-card .summary { margin: 0 0 12px; font-size: 14px; color: #2a2a2a; }
+  .proj-card .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .proj-card .tag { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; padding: 2px 7px; background: var(--card); color: var(--muted); border-radius: 2px; letter-spacing: 0.04em; }
+  .proj-card .target { font-size: 12.5px; color: var(--accent); margin-top: 10px; font-style: italic; }
+
+  .pub { padding: 12px 0; border-top: 1px solid var(--line); font-size: 14px; }
+  .pub:last-child { border-bottom: 1px solid var(--line); }
+  .pub .pub-title { font-weight: 500; }
+  .pub .pub-venue { color: var(--muted); font-size: 13px; }
+  .pub .pub-badge { display: inline-block; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; padding: 1px 6px; background: var(--accent); color: var(--bg); border-radius: 2px; margin-left: 8px; letter-spacing: 0.04em; }
+
+  .media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .media-tile { aspect-ratio: 16/10; background: var(--card); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.12em; position: relative; overflow: hidden; }
+  .media-tile::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, transparent 0 6px, rgba(23,22,21,0.04) 6px 7px); }
+  .media-tile span { position: relative; z-index: 1; }
+
+  footer { grid-column: 1 / -1; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner" id="heroBox">
+    <svg class="hero-svg" id="heroSvg" viewBox="0 0 1600 260" preserveAspectRatio="xMidYMid slice">
+      <!-- Ground is drawn first, extending full width -->
+      <g id="groundLayer"></g>
+      <!-- Walker group gets transformed by JS -->
+      <g id="walkerGroup"></g>
+    </svg>
+    <div class="hero-hint" id="heroHint">PASSIVE DYNAMIC WALKER · γ = 4.5° (7.9% grade)</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <aside class="rail">
+    <img src="" alt="Ben Gu" class="headshot" id="headshot" />
+    <h1>Ben Gu</h1>
+    <div class="subtitle">M.S. in Robotics · Carnegie Mellon University</div>
+
+    <div class="contact">
+      <div class="row"><span class="label">Lab</span><a href="https://www.cmu.edu/me/robomechanicslab/" target="_blank">Robomechanics Lab</a></div>
+      <div class="row"><span class="label">Advisor</span>Prof. Aaron Johnson</div>
+      <div class="row"><span class="label">Email</span><a href="/cdn-cgi/l/email-protection#ef8d8a81889aaf8e818b9d8a98c18c829ac18a8b9a"><span class="__cf_email__" data-cfemail="9cfef9f2fbe9dcfdf2f8eef9ebb2fff1e9b2f9f8e9">[email&#160;protected]</span></a></div>
+      <div class="row"><span class="label">GitHub</span><a href="https://github.com/BenGu0530" target="_blank">BenGu0530</a></div>
+      <div class="row"><span class="label">LinkedIn</span><a href="https://www.linkedin.com/in/bengurobotics/" target="_blank">bengurobotics</a></div>
+      <div class="row"><span class="label">CV</span><a href="cv.html">Full CV →</a></div>
+    </div>
+  </aside>
+
+  <main>
+    <section>
+      <p style="margin-top: 0">I'm a first-year M.S. student in Robotics at Carnegie Mellon, advised by Aaron Johnson in the <a href="https://www.cmu.edu/me/robomechanicslab/" target="_blank">Robomechanics Lab</a>. I finished my B.S. in Mechanical Engineering at CMU in May 2025.</p>
+      <p>My research sits at the intersection of legged locomotion, reinforcement learning, and optimal control. I build minimally-actuated bipedal robots — designing the mechanism, the controller, and the learning pipeline end-to-end — and I care a lot about the sim-to-real loop that makes those policies actually walk on hardware.</p>
+      <p>Right now I'm working on a penguin-inspired biped for low-friction slopes, and continuing work on Mugatu, the first steerable single-motor biped. I'm targeting ICRA 2027 as lead author.</p>
+      <div class="interests">
+        <span class="chip">Legged locomotion</span>
+        <span class="chip">Reinforcement learning</span>
+        <span class="chip">Optimal &amp; predictive control</span>
+        <span class="chip">Bio-inspired mechanism design</span>
+        <span class="chip">Sim-to-real transfer</span>
+        <span class="chip">Contact-rich dynamics</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Research Statement</h2>
+      <p style="color: var(--muted); font-style: italic">[ Personal research statement placeholder — add longer version here. ]</p>
+    </section>
+
+    <section>
+      <h2>News</h2>
+      <div class="news-row"><div class="date">Apr 2026</div><div>Invited to present a first-author workshop paper at ICRA 2026 in Vienna on the penguin-inspired biped.</div></div>
+      <div class="news-row"><div class="date">Mar 2026</div><div>"Allometric Scaling Laws for Bipedal Robots" submitted to IROS 2026.</div></div>
+      <div class="news-row"><div class="date">Feb 2026</div><div>Presented Mugatu work at the Gordon Research Conference on Robotics.</div></div>
+      <div class="news-row"><div class="date">Aug 2025</div><div>Started my M.S. in Robotics at CMU, continuing in the Robomechanics Lab.</div></div>
+      <div class="news-row"><div class="date">May 2025</div><div>Graduated with a B.S. in Mechanical Engineering, 4.0 GPA. CIT Leadership and Service Award.</div></div>
+    </section>
+
+    <section>
+      <h2>Ongoing Research</h2>
+      <div class="proj-grid">
+        <article class="proj-card">
+          <div class="thumb has-img"><img src="uploads/PenguDemo.gif" alt="Penguin biped demo" /></div>
+          <div class="body">
+            <div class="title">Self-Stabilizing Penguin-inspired Bipedal Robot</div>
+            <div class="meta">May 2025 – Present · Research Assistant, Robomechanics Lab</div>
+            <p class="summary">A 5-DOF bipedal robot with a crank-link leg extension that captures macaroni penguin inertial properties. Trained with a CPG-RL framework for stable, biomimetic walking on viscous and slippery substrates.</p>
+            <div class="tags"><span class="tag">Hardware</span><span class="tag">CPG-RL</span><span class="tag">MuJoCo</span><span class="tag">Isaac Lab</span><span class="tag">Sim-to-Real</span></div>
+            <div class="target">→ Lead-author submission to ICRA 2027 · First-author workshop at ICRA 2026</div>
+          </div>
+        </article>
+
+        <article class="proj-card">
+          <div class="thumb has-img" style="aspect-ratio: 3/4;"><img src="uploads/Mugatu.gif" alt="Mugatu biped demo" style="object-fit: contain; background-color: var(--card); object-position: center;" /></div>
+          <div class="body">
+            <div class="title">Mugatu: A Minimally-Actuated Steerable Biped</div>
+            <div class="meta">Dec 2023 – Present · Research Assistant, Robomechanics Lab</div>
+            <p class="summary">The first steerable single-motor biped. I built a PID attitude controller for directional control and analyzed 2D contact dynamics to optimize gait efficiency and limit-cycle stability.</p>
+            <div class="tags"><span class="tag">Hardware</span><span class="tag">PID</span><span class="tag">Limit cycles</span><span class="tag">Drake</span><span class="tag">MuJoCo</span></div>
+            <div class="target">→ "Allometric Scaling Laws for Bipedal Robots" — IROS 2026 · GRC Robotics 2026 · NCUR 2025 · CMU MOTM 2025</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+      <div class="proj-grid">
+        <article class="proj-card">
+          <div class="thumb has-img"><img src="assets/go2w.gif" alt="Go2-W agriculture" /></div>
+          <div class="body">
+            <div class="title">Hybrid Locomotion for Go2-W in Agriculture</div>
+            <div class="meta">Jan 2026 – Present · Robotics &amp; AI for Agriculture · Prof. Kantor &amp; Yandun</div>
+            <p class="summary">A PPO policy in Isaac Lab for adaptive wheel-leg switching on the Unitree Go2-W, trained on procedurally-generated off-road terrains with multi-crop row constraints.</p>
+            <div class="tags"><span class="tag">PPO</span><span class="tag">Isaac Lab</span><span class="tag">Wheel-Leg</span></div>
+          </div>
+        </article>
+
+        <article class="proj-card">
+          <div class="thumb has-img"><img src="assets/MPPI.gif?v=2" alt="MPPI drone racing"/></div>
+          <div class="body">
+            <div class="title">MPPI-Based Autonomous Drone Racing</div>
+            <div class="meta">Jan 2026 – Present · Mobile Robots · Prof. Wennie Tabib</div>
+            <p class="summary">Real-time MPPI controller for a 17-state quadrotor model, sampling control inputs in PyBullet to balance high velocity against aggressive gate navigation.</p>
+            <div class="tags"><span class="tag">MPPI</span><span class="tag">Quadrotor</span><span class="tag">PyBullet</span></div>
+          </div>
+        </article>
+
+        <article class="proj-card">
+          <div class="thumb has-img"><img src="uploads/UAVRL.gif" alt="Quadrotor landing demo" /></div>
+          <div class="body">
+            <div class="title">Sim-to-Real RL: Autonomous Quadrotor Landing</div>
+            <div class="meta">Aug 2025 – Jan 2026 · Robot Learning · Prof. Guanya Shi</div>
+            <p class="summary">PPO with 4096 parallel agents and an exponentially-scaled curriculum for precision landing on moving targets. 96% success rate on Crazyflie 2.1+ hardware with &lt;4 cm error.</p>
+            <div class="tags"><span class="tag">PPO</span><span class="tag">Curriculum</span><span class="tag">Crazyflie</span></div>
+          </div>
+        </article>
+
+        <article class="proj-card">
+          <div class="thumb has-img" style="aspect-ratio: 16/9;"><img src="uploads/GaitTransition.png" alt="A1 gait transition" style="object-fit: cover; object-position: top center;" /></div>
+          <div class="body">
+            <div class="title">MPC-based Gait Transition for Unitree A1</div>
+            <div class="meta">Jan 2024 – May 2024 · Optimal Control &amp; RL · Prof. Zachary Manchester</div>
+            <p class="summary">An RL + LQR controller for seamless transitions between 3 gaits within 2 seconds, using contact-implicit trajectory optimization in MuJoCo.</p>
+            <div class="tags"><span class="tag">MPC</span><span class="tag">LQR</span><span class="tag">Contact-implicit TO</span></div>
+          </div>
+        </article>
+
+        <article class="proj-card">
+          <div class="thumb has-img"><img src="uploads/PAM.png" alt="PAM suspension system" style="object-fit: cover; object-position: center;" /></div>
+          <div class="body">
+            <div class="title">Variable Stiffness Suspension System Using Pneumatic Artificial Muscles</div>
+            <div class="meta">Spring 2024 · Soft Robotics · Prof. Carmel Majidi</div>
+            <p class="summary">Designed, CAD-modeled, simulated, and fabricated a PAM-enhanced suspension system with mode-switching and feedback control. Collected experimental data validating variable stiffness across loading conditions.</p>
+            <div class="tags"><span class="tag">PAM</span><span class="tag">Soft Robotics</span><span class="tag">Feedback Control</span><span class="tag">CAD</span><span class="tag">Fabrication</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Publications</h2>
+      <div class="pub">
+        <div><span class="pub-title">Allometric Scaling Laws for Bipedal Robots</span></div>
+        <div class="pub-venue">B. Gu, et al. · Submitted, IROS 2026 · arXiv:2603.22560</div>
+      </div>
+      <div class="pub">
+        <div><span class="pub-title">Penguin-inspired Biped for Low-Friction Slopes</span><span class="pub-badge">accepted</span></div>
+        <div class="pub-venue">B. Gu, et al. · Workshop, ICRA 2026 (Vienna)</div>
+      </div>
+      <div class="pub">
+        <div><span class="pub-title">Self-Stabilizing Penguin-inspired Bipedal Locomotion</span><span class="pub-badge">in prep</span></div>
+        <div class="pub-venue">B. Gu, et al. · In preparation for ICRA 2027 (Seoul)</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Selected Media</h2>
+      <div class="media-grid">
+        <div class="media-tile"><span>▶ MUGATU WALKING DEMO</span></div>
+        <div class="media-tile"><span>▶ PENGUIN BIPED MOCAP</span></div>
+        <div class="media-tile"><span>▶ CRAZYFLIE LANDING</span></div>
+        <div class="media-tile"><span>▶ GO2-W IN CROP ROWS</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>The fastest way to reach me is email: <a href="/cdn-cgi/l/email-protection#c5a7a0aba2b085a4aba1b7a0b2eba6a8b0eba0a1b0"><span class="__cf_email__" data-cfemail="b2d0d7dcd5c7f2d3dcd6c0d7c59cd1dfc79cd7d6c7">[email&#160;protected]</span></a>. I'm always happy to chat about legged robots, RL, or sim-to-real.</p>
+    </section>
+
+    <footer>
+      <span>© Ben Gu · Last updated Apr 2026</span>
+      <span class="mono">BUILT IN PITTSBURGH, PA</span>
+    </footer>
+  </main>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ──────────────────────────────────────────────────────────────
+   INTERACTIVE PASSIVE DYNAMIC WALKER
+   States:
+     WALK      — gravity-driven gait on a slope (visual illusion: we pan the ground)
+     DRAG      — user is dragging; body follows mouse; swings like a pendulum
+     FALL      — released mid-air; projectile + rotation until feet hit floor
+     SETTLE    — brief landing squash, then back to WALK
+   Ground is full-width (svg viewBox 0..1600).
+────────────────────────────────────────────────────────────── */
+(function () {
+  const SVG_W = 1600, SVG_H = 260;
+  const svg = document.getElementById('heroSvg');
+  const heroBox = document.getElementById('heroBox');
+  const walkerG = document.getElementById('walkerGroup');
+  const groundG = document.getElementById('groundLayer');
+
+  // Geometry
+  const L = 78;          // leg length (extended)
+  const R = 18;          // foot curvature radius
+  const SLOPE_DEG = -4.5;
+  const slope = SLOPE_DEG * Math.PI / 180;
+  const STEP_ANGLE = 0.32;
+  const STEP_PERIOD = 1.1;
+
+  // Caption label: γ = X° (Y% grade)
+  const slopeDegAbs = Math.abs(SLOPE_DEG);
+  const gradePercent = Math.abs(Math.tan(slope) * 100).toFixed(1);
+  const heroHint = document.getElementById('heroHint');
+  if (heroHint) {
+    heroHint.textContent = `PASSIVE DYNAMIC WALKER · γ = ${slopeDegAbs.toFixed(1)}° (${gradePercent}% grade)`;
+  }
+
+  // Floor: the floor line passes through a fixed point on screen, angled by -slope
+  // We draw it across the entire SVG width.
+  const FLOOR_ANCHOR_Y = 200;   // y-coord where floor crosses screen center x
+  const ANCHOR_X = SVG_W / 2;
+
+  // Returns floor Y at given world X
+  const floorYAt = (x) => FLOOR_ANCHOR_Y - (x - ANCHOR_X) * Math.tan(slope);
+
+  // ─── Draw ground (full width, scrolling) ───────────────────
+  const TICK_SPACING = 30;
+  let groundOffset = 0; // accumulated leftward scroll of the ground (walker's world progress)
+  function drawGround() {
+    const yL = floorYAt(-50);
+    const yR = floorYAt(SVG_W + 50);
+    let ticks = '';
+    // Wrap offset into one tick period so the tick pattern tiles seamlessly
+    const shift = ((groundOffset % TICK_SPACING) + TICK_SPACING) % TICK_SPACING;
+    for (let x = -50 - shift; x < SVG_W + 50 + TICK_SPACING; x += TICK_SPACING) {
+      const y = floorYAt(x);
+      ticks += `<line x1="${x}" y1="${y}" x2="${x - 10}" y2="${y + 16}" stroke="#171615" stroke-width="0.75" opacity="0.35" />`;
+    }
+    groundG.innerHTML = `
+      <polygon points="-50,${yL} ${SVG_W + 50},${yR} ${SVG_W + 50},${SVG_H + 100} -50,${SVG_H + 100}"
+               fill="#efece2" />
+      <line x1="-50" y1="${yL}" x2="${SVG_W + 50}" y2="${yR}" stroke="#171615" stroke-width="1.25" />
+      ${ticks}
+    `;
+  }
+  drawGround();
+
+  // ─── State machine ───────────────────
+  const STATE = { WALK: 'walk', DRAG: 'drag', FALL: 'fall', RELEASE: 'release', SETTLE: 'settle' };
+  let state = STATE.WALK;
+
+  // Post-release brief-fall phase
+  let releaseT0 = 0;
+  let releaseX0 = 0, releaseY0 = 0;
+  let releaseVX = 0, releaseVY = 0;
+
+  // Time-based ground-scroll boost: 2x at t=0, lerps to 1x over 1.5s.
+  let scrollBoostStart = -1;
+
+  // Walker state (position is the HIP in world coords)
+  let hipX = ANCHOR_X;
+  let hipY = FLOOR_ANCHOR_Y - L * Math.cos(slope); // hip sits L above floor; rocker belly is at the leg tip
+  let vx = 0, vy = 0;                              // velocity for physics
+  let bodyAngle = 0;                               // body rotation (around hip), rad
+  let bodyAngVel = 0;                              // angular velocity
+  let leftAngle = STEP_ANGLE / 2;                  // left leg angle rel body
+  let rightAngle = -STEP_ANGLE / 2;                // right leg angle rel body
+  let leftIsStance = true;
+  let gaitPhase = 0;                               // 0..1 within step
+  let lastT = performance.now();
+
+  // For drag velocity sampling
+  let dragPrev = { x: 0, y: 0, t: 0 };
+  let dragPointerId = null;
+  let dragOffset = { x: 0, y: 0 };                 // hip offset from pointer
+
+  // For WALK state: horizontal drift (hip slides back toward anchor so it doesn't run off)
+  function stepLength() { return 2 * L * Math.sin(STEP_ANGLE / 2); }
+
+  // ─── Helpers ───────────────────
+  function svgPointFromEvent(e) {
+    const pt = svg.createSVGPoint();
+    pt.x = e.clientX; pt.y = e.clientY;
+    const ctm = svg.getScreenCTM();
+    const p = pt.matrixTransform(ctm.inverse());
+    return { x: p.x, y: p.y };
+  }
+
+  // Render: given hipX, hipY, bodyAngle, leftAngle, rightAngle
+  function render() {
+    const bodyLen = 26;
+    const upX = Math.sin(bodyAngle);
+    const upY = -Math.cos(bodyAngle);
+    const headX = hipX + upX * bodyLen;
+    const headY = hipY + upY * bodyLen;
+
+    // Leg direction (dx, dy) is "body-down" rotated by the leg angle.
+    // Positive angle = leg tilted forward (rightward for a right-walking walker).
+    function legDir(angle) {
+      const ca = Math.cos(angle), sa = Math.sin(angle);
+      const dx = -upX * ca - upY * sa;
+      const dy = upX * sa - upY * ca;
+      return { dx, dy };
+    }
+
+    // Draw a single leg: line from hip to arc-center (R before tip), plus foot arc.
+    // `scale` (≤1) shortens the swing leg to simulate into-the-page 3D swing.
+    function drawLeg(angle, color, scale) {
+      const { dx, dy } = legDir(angle);
+      const effLen = L * scale;
+      const cx = hipX + dx * (effLen - R);   // arc center = R back from tip along leg
+      const cy = hipY + dy * (effLen - R);
+
+      // Rocker arc orientation in world frame (matches the reference implementation).
+      const legAngleWorld = angle + bodyAngle;
+      const arcStart = -Math.PI / 2.5;
+      const arcEnd = Math.PI / 2.5;
+      const a0 = legAngleWorld + Math.PI / 2 + arcStart;
+      const a1 = legAngleWorld + Math.PI / 2 + arcEnd;
+      const ax0 = cx + R * Math.cos(a0);
+      const ay0 = cy + R * Math.sin(a0);
+      const ax1 = cx + R * Math.cos(a1);
+      const ay1 = cy + R * Math.sin(a1);
+
+      return `
+        <line x1="${hipX}" y1="${hipY}" x2="${cx}" y2="${cy}"
+              stroke="${color}" stroke-width="4.5" stroke-linecap="round" />
+        <path d="M ${ax0} ${ay0} A ${R} ${R} 0 0 1 ${ax1} ${ay1}"
+              fill="none" stroke="${color}" stroke-width="4" stroke-linecap="round" />
+      `;
+    }
+
+    const LEG_A = '#171615';
+    const LEG_B = '#c44536';
+    const leftColor = leftIsStance ? LEG_B : LEG_A;
+    const rightColor = leftIsStance ? LEG_A : LEG_B;
+
+    // Swing leg shortens to ~65% at mid-swing, returns to full at heel-strike.
+    const swingScale = (state === STATE.WALK)
+      ? (1 - 0.35 * Math.sin(Math.PI * gaitPhase))
+      : 1;
+    const leftScale = leftIsStance ? 1 : swingScale;
+    const rightScale = leftIsStance ? swingScale : 1;
+
+    walkerG.innerHTML = `
+      <g class="walker-body">
+        <!-- shadow -->
+        <ellipse cx="${hipX}" cy="${floorYAt(hipX)}" rx="28" ry="3" fill="rgba(0,0,0,0.12)" />
+
+        <!-- swing leg drawn first so stance leg is on top -->
+        ${!leftIsStance
+          ? drawLeg(leftAngle, leftColor, leftScale)
+          : drawLeg(rightAngle, rightColor, rightScale)
+        }
+
+        <!-- stance leg -->
+        ${leftIsStance
+          ? drawLeg(leftAngle, leftColor, leftScale)
+          : drawLeg(rightAngle, rightColor, rightScale)
+        }
+
+        <!-- torso -->
+        <line x1="${hipX}" y1="${hipY}" x2="${headX}" y2="${headY}" stroke="#171615" stroke-width="2.5" stroke-linecap="round" />
+
+        <!-- hip -->
+        <circle cx="${hipX}" cy="${hipY}" r="6" fill="#171615" />
+        <circle cx="${hipX}" cy="${hipY}" r="2.5" fill="#f7f5ef" />
+
+        <!-- head -->
+        <circle cx="${headX}" cy="${headY}" r="6" fill="#171615" />
+
+        <!-- invisible grab area (big click target) -->
+        <circle cx="${hipX}" cy="${hipY}" r="45" fill="transparent" pointer-events="all" data-grab="1" style="cursor: grab;" />
+      </g>
+    `;
+  }
+
+  // ─── WALK step update ───────────────────
+  function updateWalk(dt) {
+    gaitPhase += dt / STEP_PERIOD;
+    while (gaitPhase >= 1) {
+      gaitPhase -= 1;
+      leftIsStance = !leftIsStance;
+    }
+    // stance leg sweeps forward→back
+    const stance = STEP_ANGLE / 2 - STEP_ANGLE * gaitPhase;
+    // swing leg: behind → in front, with forward kick
+    const s = gaitPhase;
+    const swing = -STEP_ANGLE / 2 + STEP_ANGLE * s + Math.sin(Math.PI * s) * STEP_ANGLE * 0.6;
+
+    if (leftIsStance) { leftAngle = stance; rightAngle = swing; }
+    else { leftAngle = swing; rightAngle = stance; }
+
+    // Body leans with slope while walking (snappier — settle fast after a drop)
+    bodyAngle += (-slope - bodyAngle) * Math.min(1, dt * 12);
+
+    // Walk toward center at normal gait speed
+    const baseSpeed = stepLength() / STEP_PERIOD; // px/s — one stride per step
+    const dist = ANCHOR_X - hipX;
+    if (Math.abs(dist) > 2) {
+      const dir = Math.sign(dist);
+      const easing = Math.min(1, Math.abs(dist) / (stepLength() * 2));
+      hipX += dir * baseSpeed * dt * Math.max(0.25, easing);
+    } else {
+      hipX = ANCHOR_X;
+    }
+
+    // Ground scrolls to simulate walking. When walker is right of center, scroll faster
+    // (going downhill); when left of center, scroll slower or pause (lagging behind).
+    const distFromCenter = hipX - ANCHOR_X; // signed: + right of center
+    const scrollMultiplier = Math.max(0, 1 + (distFromCenter / SVG_W) * 2);
+    // Time-based boost: 2x at release → 1x over 1.5s (for right-of-center drops).
+    let boost = 1;
+    if (scrollBoostStart >= 0) {
+      const elapsed = (performance.now() - scrollBoostStart) / 1000;
+      if (elapsed >= 1.5) {
+        scrollBoostStart = -1;
+      } else {
+        boost = 1 + (1 - elapsed / 1.5); // 2 → 1 over 1.5s
+      }
+    }
+    groundOffset += baseSpeed * scrollMultiplier * boost * dt;
+
+    // Hip height follows stance leg angle — walker rocks slightly as the stance sweeps.
+    // Hip sits L above floor; the rocker-arc belly sits at the leg tip on the ground.
+    const targetY = floorYAt(hipX) - L * Math.cos(Math.max(0.05, Math.abs(stance)));
+    hipY += (targetY - hipY) * Math.min(1, dt * 10);
+  }
+
+  // ─── DRAG: pendulum physics ───────────────────
+  function updateDrag(dt, mx, my) {
+    // Hip follows pointer (with captured offset so the grab point stays stable)
+    hipX = mx + dragOffset.x;
+    hipY = my + dragOffset.y;
+
+    // Sample pointer velocity for release
+    const t = performance.now();
+    if (dragPrev.t > 0) {
+      const ddt = Math.max(0.001, (t - dragPrev.t) / 1000);
+      vx = (mx - dragPrev.x) / ddt;
+      vy = (my - dragPrev.y) / ddt;
+    }
+    dragPrev = { x: mx, y: my, t };
+
+    // Legs swing as a simple pendulum from hip velocity; torso stays upright.
+    const a = Math.max(-0.5, Math.min(0.5, -vx / 400));
+    leftAngle = a;
+    rightAngle = -a + 0.15;
+    bodyAngle = 0;
+    bodyAngVel = 0;
+  }
+
+  // ─── FALL: projectile + rotation ───────────────────
+  function updateFall(dt) {
+    const g = 1400; // px/s^2
+    vy += g * dt;
+    hipX += vx * dt;
+    hipY += vy * dt;
+    // air drag a bit
+    vx *= Math.pow(0.6, dt);
+
+    // Body rotates freely with angular velocity, damped
+    bodyAngle += bodyAngVel * dt;
+    bodyAngVel *= Math.pow(0.4, dt);
+
+    // Legs flail based on angular velocity
+    leftAngle += (0.2 - leftAngle) * Math.min(1, dt * 3) + Math.sin(performance.now() / 120) * dt * 0.4;
+    rightAngle += (-0.2 - rightAngle) * Math.min(1, dt * 3) - Math.sin(performance.now() / 120) * dt * 0.4;
+
+    // Clamp to stay in view horizontally
+    if (hipX < 100) { hipX = 100; vx = Math.abs(vx) * 0.4; }
+    if (hipX > SVG_W - 100) { hipX = SVG_W - 100; vx = -Math.abs(vx) * 0.4; }
+
+    // Check foot contact with floor
+    // Compute lowest foot y
+    const lowest = computeLowestFootY();
+    const floorY = floorYAt(hipX);
+    if (lowest >= floorY && vy > 0) {
+      // Land
+      // Correct hip so lowest foot sits on floor
+      const correction = lowest - floorY;
+      hipY -= correction;
+      // Bounce with damping
+      if (Math.abs(vy) > 120) {
+        vy = -vy * 0.35;
+        vx *= 0.6;
+        bodyAngVel *= 0.4;
+      } else {
+        // Settle
+        vy = 0; vx = 0; bodyAngVel = 0;
+        state = STATE.SETTLE;
+        settleStart = performance.now();
+      }
+    }
+  }
+
+  function computeLowestFootY() {
+    const upX = Math.sin(bodyAngle);
+    const upY = -Math.cos(bodyAngle);
+    function legEnd(angle) {
+      const ca = Math.cos(angle), sa = Math.sin(angle);
+      const dy = upX * sa - upY * ca;
+      return hipY + dy * L;
+    }
+    return Math.max(legEnd(leftAngle), legEnd(rightAngle));
+  }
+
+  // ─── RELEASE: 0.3s ballistic fall arc after drag-drop, then WALK ───────────────────
+  function updateRelease(dt) {
+    const t = (performance.now() - releaseT0) / 1000;
+    const g = 800; // px/s²
+    const hipYWalk = floorYAt(hipX) - L * Math.cos(slope);
+
+    // Fall arc: y = y0 + vy*t + 0.5*g*t²; snap when we reach walk height.
+    hipY = releaseY0 + releaseVY * t + 0.5 * g * t * t;
+    // Horizontal drift during the brief fall
+    hipX = releaseX0 + releaseVX * t * 0.4;
+
+    // Legs hang like a pendulum based on release velocity
+    const a = Math.max(-0.5, Math.min(0.5, -releaseVX / 400));
+    leftAngle += (a - leftAngle) * Math.min(1, dt * 10);
+    rightAngle += ((-a + 0.15) - rightAngle) * Math.min(1, dt * 10);
+    bodyAngle += (-slope - bodyAngle) * Math.min(1, dt * 8);
+
+    if (hipY >= hipYWalk || t >= 0.3) {
+      hipY = hipYWalk;
+      state = STATE.WALK;
+      gaitPhase = 0;
+    }
+  }
+
+  // ─── SETTLE: brief squash, then WALK ───────────────────
+  let settleStart = 0;
+  function updateSettle(dt) {
+    const t = (performance.now() - settleStart) / 1000;
+    // Interpolate body angle toward -slope, legs toward gait stance
+    bodyAngle += (-slope - bodyAngle) * Math.min(1, dt * 6);
+    leftAngle += ((leftIsStance ? STEP_ANGLE/2 : -STEP_ANGLE/2) - leftAngle) * Math.min(1, dt * 6);
+    rightAngle += ((leftIsStance ? -STEP_ANGLE/2 : STEP_ANGLE/2) - rightAngle) * Math.min(1, dt * 6);
+    // Snap hip Y to floor (hip sits L above floor; rocker belly is at the leg tip)
+    const targetY = floorYAt(hipX) - L * Math.cos(slope);
+    hipY += (targetY - hipY) * Math.min(1, dt * 8);
+    if (t > 0.35) {
+      state = STATE.WALK;
+      gaitPhase = 0;
+    }
+  }
+
+  // ─── Main loop ───────────────────
+  function tick(now) {
+    const dt = Math.min(0.05, (now - lastT) / 1000);
+    lastT = now;
+
+    if (state === STATE.WALK) updateWalk(dt);
+    else if (state === STATE.DRAG) { /* updated on pointermove */ }
+    else if (state === STATE.RELEASE) updateRelease(dt);
+    else if (state === STATE.FALL) updateFall(dt);
+    else if (state === STATE.SETTLE) updateSettle(dt);
+
+    drawGround();
+    render();
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  // ─── Pointer interaction ───────────────────
+  svg.addEventListener('pointerdown', (e) => {
+    // Only grab if on walker body
+    const grabbable = e.target.closest && (e.target.closest('.walker-body') || e.target.getAttribute('data-grab'));
+    if (!grabbable) return;
+    e.preventDefault();
+    dragPointerId = e.pointerId;
+    svg.setPointerCapture(e.pointerId);
+    heroBox.classList.add('dragging');
+    state = STATE.DRAG;
+    const p = svgPointFromEvent(e);
+    dragOffset.x = hipX - p.x;
+    dragOffset.y = hipY - p.y;
+    dragPrev = { x: p.x, y: p.y, t: performance.now() };
+    vx = vy = 0; bodyAngVel = 0;
+  });
+
+  svg.addEventListener('pointermove', (e) => {
+    if (dragPointerId !== e.pointerId || state !== STATE.DRAG) return;
+    const p = svgPointFromEvent(e);
+    updateDrag(0.016, p.x, p.y);
+  });
+
+  function endDrag(e) {
+    if (dragPointerId !== e.pointerId) return;
+    try { svg.releasePointerCapture(e.pointerId); } catch {}
+    dragPointerId = null;
+    heroBox.classList.remove('dragging');
+
+    // Start a brief ballistic fall-arc phase; updateRelease() snaps back to WALK
+    // when the walker meets the floor (or after 0.3s).
+    releaseT0 = performance.now();
+    releaseX0 = hipX; releaseY0 = hipY;
+    releaseVX = Math.max(-800, Math.min(800, vx));
+    releaseVY = Math.max(-800, Math.min(800, vy));
+    bodyAngVel = 0;
+
+    // Released right of center → 2x ground-scroll boost for 1.5s, easing back to 1x.
+    if (hipX > SVG_W * 0.45) {
+      scrollBoostStart = performance.now();
+    }
+
+    state = STATE.RELEASE;
+  }
+  svg.addEventListener('pointerup', endDrag);
+  svg.addEventListener('pointercancel', endDrag);
+})();
+
+/* ──────────────────────────────────────────────────────────────
+   Load headshot as data URL (so it displays reliably)
+────────────────────────────────────────────────────────────── */
+document.getElementById('headshot').src = 'data:image/jpeg;base64,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';
+</script>
+
+</body>
+</html>
