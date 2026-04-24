@@ -146,7 +146,7 @@
     <div class="contact">
       <div class="row"><span class="label">Lab</span><a href="https://www.cmu.edu/me/robomechanicslab/" target="_blank">Robomechanics Lab</a></div>
       <div class="row"><span class="label">Advisor</span>Prof. Aaron Johnson</div>
-      <div class="row"><span class="label">Email</span><a href="/cdn-cgi/l/email-protection#ef8d8a81889aaf8e818b9d8a98c18c829ac18a8b9a"><span class="__cf_email__" data-cfemail="9cfef9f2fbe9dcfdf2f8eef9ebb2fff1e9b2f9f8e9">[email&#160;protected]</span></a></div>
+      <div class="row"><span class="label">Email</span><a href="#" id="emailLink" data-user="bengu" data-domain="andrew.cmu.edu">bengu [at] andrew.cmu.edu</a></div>
       <div class="row"><span class="label">GitHub</span><a href="https://github.com/BenGu0530" target="_blank">BenGu0530</a></div>
       <div class="row"><span class="label">LinkedIn</span><a href="https://www.linkedin.com/in/bengurobotics/" target="_blank">bengurobotics</a></div>
       <div class="row"><span class="label">CV</span><a href="cv.html">Full CV →</a></div>
@@ -243,7 +243,7 @@
         </article>
 
         <article class="proj-card">
-          <div class="thumb has-img" style="aspect-ratio: 16/9;"><img src="uploads/GaitTransition.png" alt="A1 gait transition" style="object-fit: cover; object-position: top center;" /></div>
+          <div class="thumb has-img" style="aspect-ratio: 16/9; overflow: hidden;"><img src="uploads/GaitTransition.png" alt="A1 gait transition" style="width: 100%; height: 100%; object-fit: cover; object-position: top left;" /></div>
           <div class="body">
             <div class="title">MPC-based Gait Transition for Unitree A1</div>
             <div class="meta">Jan 2024 – May 2024 · Optimal Control &amp; RL · Prof. Zachary Manchester</div>
@@ -253,7 +253,7 @@
         </article>
 
         <article class="proj-card">
-          <div class="thumb has-img"><img src="uploads/PAM.png" alt="PAM suspension system" style="object-fit: cover; object-position: center;" /></div>
+          <div class="thumb has-img" style="aspect-ratio: 3/2;"><img src="uploads/PAM.png" alt="PAM suspension system" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%;" /></div>
           <div class="body">
             <div class="title">Variable Stiffness Suspension System Using Pneumatic Artificial Muscles</div>
             <div class="meta">Spring 2024 · Soft Robotics · Prof. Carmel Majidi</div>
@@ -292,7 +292,7 @@
 
     <section>
       <h2>Contact</h2>
-      <p>The fastest way to reach me is email: <a href="/cdn-cgi/l/email-protection#c5a7a0aba2b085a4aba1b7a0b2eba6a8b0eba0a1b0"><span class="__cf_email__" data-cfemail="b2d0d7dcd5c7f2d3dcd6c0d7c59cd1dfc79cd7d6c7">[email&#160;protected]</span></a>. I'm always happy to chat about legged robots, RL, or sim-to-real.</p>
+      <p>The fastest way to reach me is email: <a href="#" id="emailLink2" data-user="bengu" data-domain="andrew.cmu.edu">bengu [at] andrew.cmu.edu</a>. I'm always happy to chat about legged robots, RL, or sim-to-real.</p>
     </section>
 
     <footer>
@@ -302,7 +302,17 @@
   </main>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+/* Construct email links at runtime so scrapers/obfuscators don't rewrite them. */
+(function () {
+  document.querySelectorAll('a[data-user][data-domain]').forEach(function (el) {
+    var u = el.dataset.user, d = el.dataset.domain;
+    el.href = 'mailto:' + u + '@' + d;
+    el.textContent = u + '@' + d;
+  });
+})();
+</script>
+<script>
 /* ──────────────────────────────────────────────────────────────
    INTERACTIVE PASSIVE DYNAMIC WALKER
    States:
