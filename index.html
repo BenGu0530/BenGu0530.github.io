@@ -47,7 +47,8 @@
   .walker-body { cursor: grab; }
   .walker-body:active { cursor: grabbing; }
   .hero-hint {
-    position: absolute; bottom: 10px; right: 14px; pointer-events: none;
+    position: absolute; bottom: 10px; right: 24px; pointer-events: none;
+    white-space: nowrap;
     font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px;
     letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); opacity: 0.7;
   }
@@ -73,6 +74,11 @@
   .news-row { display: grid; grid-template-columns: 90px 1fr; gap: 16px; padding: 12px 0; border-top: 1px solid var(--line); }
   .news-row:last-child { border-bottom: 1px solid var(--line); }
   .news-row .date { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.05em; padding-top: 2px; }
+
+  /* h2's border-bottom already divides heading from list — drop the first row's
+     redundant border-top and collapse the heading gap so it keeps the 12px rhythm */
+  h2:has(+ .news-row), h2:has(+ .pub) { margin-bottom: 0; }
+  h2 + .news-row, h2 + .pub { border-top: none; }
 
   /* ============ PROJECT CARDS (image on top, text below) ============ */
   .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -115,10 +121,11 @@
   .pub .pub-venue { color: var(--muted); font-size: 13px; }
   .pub .pub-badge { display: inline-block; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; padding: 1px 6px; background: var(--accent); color: var(--bg); border-radius: 2px; margin-left: 8px; letter-spacing: 0.04em; }
 
-  .media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .media-tile { aspect-ratio: 16/10; background: var(--card); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.12em; position: relative; overflow: hidden; }
-  .media-tile::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, transparent 0 6px, rgba(23,22,21,0.04) 6px 7px); }
-  .media-tile span { position: relative; z-index: 1; }
+  .media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+  .media-tile { background: var(--card); border: 1px solid var(--line); position: relative; overflow: hidden; width: fit-content; max-width: 100%; margin: 0 auto; }
+  .media-tile img, .media-tile video { display: block; width: auto; height: auto; max-width: 100%; max-height: 480px; }
+  .media-item { margin: 0; }
+  .media-item figcaption { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
 
   footer { grid-column: 1 / -1; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; }
 </style>
@@ -133,7 +140,7 @@
       <!-- Walker group gets transformed by JS -->
       <g id="walkerGroup"></g>
     </svg>
-    <div class="hero-hint" id="heroHint">PASSIVE DYNAMIC WALKER · γ = 4.5° (7.9% grade)</div>
+    <div class="hero-hint" id="heroHint">PASSIVE DYNAMIC WALKER · γ = 4.5° · Try to drag</div>
   </div>
 </div>
 
@@ -141,7 +148,7 @@
   <aside class="rail">
     <img src="" alt="Ben Gu" class="headshot" id="headshot" />
     <h1>Ben Gu</h1>
-    <div class="subtitle">M.S. in Robotics · Carnegie Mellon University</div>
+    <div class="subtitle">M.S. in Robotics · Carnegie Mellon</div>
 
     <div class="contact">
       <div class="row"><span class="label">Lab</span><a href="https://www.cmu.edu/me/robomechanicslab/" target="_blank">Robomechanics Lab</a></div>
@@ -155,9 +162,8 @@
 
   <main>
     <section>
-      <p style="margin-top: 0">I'm a first-year M.S. student in Robotics at Carnegie Mellon, advised by Aaron Johnson in the <a href="https://www.cmu.edu/me/robomechanicslab/" target="_blank">Robomechanics Lab</a>. I finished my B.S. in Mechanical Engineering at CMU in May 2025.</p>
-      <p>My research sits at the intersection of legged locomotion, reinforcement learning, and optimal control. I build minimally-actuated bipedal robots — designing the mechanism, the controller, and the learning pipeline end-to-end — and I care a lot about the sim-to-real loop that makes those policies actually walk on hardware.</p>
-      <p>Right now I'm working on a penguin-inspired biped for low-friction slopes, and continuing work on Mugatu, the first steerable single-motor biped. I'm targeting ICRA 2027 as lead author.</p>
+      <p style="margin-top: 0">I'm a first-year M.S. student in Robotics at Carnegie Mellon, advised by Aaron Johnson in the <a href="https://www.cmu.edu/me/robomechanicslab/" target="_blank">Robomechanics Lab</a>.</p>
+      <p>I build minimally-actuated bipedal robots that walk in the real world. Right now, a penguin-inspired biped for low-friction slopes and Mugatu, the first steerable single-motor biped. I'm targeting ICRA 2027 as lead author. In 2026 summer, I'm joining <a href="https://www.autelrobotics.com/" target="_blank">Autel Robotics</a> as a Physical AI intern.</p>
       <div class="interests">
         <span class="chip">Legged locomotion</span>
         <span class="chip">Reinforcement learning</span>
@@ -170,14 +176,15 @@
 
     <section>
       <h2>Research Statement</h2>
-      <p style="color: var(--muted); font-style: italic">[ Personal research statement placeholder — add longer version here. ]</p>
+      <p>I want to understand how morphology and control can be co-designed so that simple, low-cost legged robots walk robustly outside the lab. I start from biology and physics to extract the minimal mechanism that makes a gait work, then close the loop with reinforcement learning in simulation and transfer policies to hardware. The goal is a tighter design pipeline from animal observation to walking machine, where the mechanism does half the work and the controller does the rest.</p>
     </section>
 
     <section>
       <h2>News</h2>
+      <div class="news-row"><div class="date">May 2026</div><div>Joining <a href="https://www.autelrobotics.com/" target="_blank" rel="noopener">Autel Robotics</a> as a Physical AI intern for the summer.</div></div>
       <div class="news-row"><div class="date">Apr 2026</div><div>Invited to present a first-author workshop paper at ICRA 2026 in Vienna on the penguin-inspired biped.</div></div>
-      <div class="news-row"><div class="date">Mar 2026</div><div>"Allometric Scaling Laws for Bipedal Robots" submitted to IROS 2026.</div></div>
-      <div class="news-row"><div class="date">Feb 2026</div><div>Presented Mugatu work at the Gordon Research Conference on Robotics.</div></div>
+      <div class="news-row"><div class="date">Mar 2026</div><div><a href="https://arxiv.org/abs/2603.22560v2" target="_blank" rel="noopener">"Allometric Scaling Laws for Bipedal Robots"</a> submitted to IROS 2026.</div></div>
+      <div class="news-row"><div class="date">Jan 2026</div><div>Presented Mugatu work at the Gordon Research Conference on Robotics.</div></div>
       <div class="news-row"><div class="date">Aug 2025</div><div>Started my M.S. in Robotics at CMU, continuing in the Robomechanics Lab.</div></div>
       <div class="news-row"><div class="date">May 2025</div><div>Graduated with a B.S. in Mechanical Engineering, 4.0 GPA. CIT Leadership and Service Award.</div></div>
     </section>
@@ -188,11 +195,15 @@
         <article class="proj-card">
           <div class="thumb has-img"><img src="uploads/PenguDemo.gif" alt="Penguin biped demo" /></div>
           <div class="body">
-            <div class="title">Self-Stabilizing Penguin-inspired Bipedal Robot</div>
+            <div class="title">Pengu: Macaroni Penguin-inspired Bipedal Robot</div>
             <div class="meta">May 2025 – Present · Research Assistant, Robomechanics Lab</div>
-            <p class="summary">A 5-DOF bipedal robot with a crank-link leg extension that captures macaroni penguin inertial properties. Trained with a CPG-RL framework for stable, biomimetic walking on viscous and slippery substrates.</p>
-            <div class="tags"><span class="tag">Hardware</span><span class="tag">CPG-RL</span><span class="tag">MuJoCo</span><span class="tag">Isaac Lab</span><span class="tag">Sim-to-Real</span></div>
-            <div class="target">→ Lead-author submission to ICRA 2027 · First-author workshop at ICRA 2026</div>
+            <p class="summary">A 5-DOF bipedal robot with a  crank-link leg extension that captures macaroni penguin inertial properties. Currently training with a CPG-RL framework for stable, biomimetic walking on viscous, slippery, and sloped surfaces.</p>
+            <div class="tags"><span class="tag">Hardware</span><span class="tag">Morphology Desgin</span><span class="tag">CPG-RL</span><span class="tag">MuJoCo</span><span class="tag">Isaac Lab</span><span class="tag">Sim-to-Real</span></div>
+            <div class="target">
+              → Lead-author submission to ICRA 2027<br>
+              → First-author workshop at ICRA 2026<br>
+              → Featured at NFL Draft Tech Demo Day 2026
+            <div>
           </div>
         </article>
 
@@ -203,8 +214,10 @@
             <div class="meta">Dec 2023 – Present · Research Assistant, Robomechanics Lab</div>
             <p class="summary">The first steerable single-motor biped. I built a PID attitude controller for directional control and analyzed 2D contact dynamics to optimize gait efficiency and limit-cycle stability.</p>
             <div class="tags"><span class="tag">Hardware</span><span class="tag">PID</span><span class="tag">Limit cycles</span><span class="tag">Drake</span><span class="tag">MuJoCo</span></div>
-            <div class="target">→ "Allometric Scaling Laws for Bipedal Robots" — IROS 2026 · GRC Robotics 2026 · NCUR 2025 · CMU MOTM 2025</div>
-          </div>
+            <div class="target">
+              → Allometric Scaling Laws for Bipedal Robots — IROS 2026<br>
+              → GRC Robotics 2026 · NCUR 2025 · CMU MOTM 2025
+            </div> 
         </article>
       </div>
     </section>
@@ -216,9 +229,9 @@
           <div class="thumb has-img"><img src="assets/go2w.gif" alt="Go2-W agriculture" /></div>
           <div class="body">
             <div class="title">Hybrid Locomotion for Go2-W in Agriculture</div>
-            <div class="meta">Jan 2026 – Present · Robotics &amp; AI for Agriculture · Prof. Kantor &amp; Yandun</div>
+            <div class="meta">Jan 2026 – Present · Robotics &amp; AI for Agriculture · Prof. George Kantor &amp; Francisco Yandun</div>
             <p class="summary">A PPO policy in Isaac Lab for adaptive wheel-leg switching on the Unitree Go2-W, trained on procedurally-generated off-road terrains with multi-crop row constraints.</p>
-            <div class="tags"><span class="tag">PPO</span><span class="tag">Isaac Lab</span><span class="tag">Wheel-Leg</span></div>
+            <div class="tags"><span class="tag">PPO</span><span class="tag">Isaac Lab</span><span class="tag">Wheel-Leg</span><span class="tag">Rough Terrain</span></div>
           </div>
         </article>
 
@@ -226,7 +239,7 @@
           <div class="thumb has-img"><img src="assets/MPPI.gif?v=2" alt="MPPI drone racing"/></div>
           <div class="body">
             <div class="title">MPPI-Based Autonomous Drone Racing</div>
-            <div class="meta">Jan 2026 – Present · Mobile Robots · Prof. Wennie Tabib</div>
+            <div class="meta">Jan 2026 – May 2026 · Mobile Robots · Prof. Wennie Tabib</div>
             <p class="summary">Real-time MPPI controller for a 17-state quadrotor model, sampling control inputs in PyBullet to balance high velocity against aggressive gate navigation.</p>
             <div class="tags"><span class="tag">MPPI</span><span class="tag">Quadrotor</span><span class="tag">PyBullet</span></div>
           </div>
@@ -238,7 +251,7 @@
             <div class="title">Sim-to-Real RL: Autonomous Quadrotor Landing</div>
             <div class="meta">Aug 2025 – Jan 2026 · Robot Learning · Prof. Guanya Shi</div>
             <p class="summary">PPO with 4096 parallel agents and an exponentially-scaled curriculum for precision landing on moving targets. 96% success rate on Crazyflie 2.1+ hardware with &lt;4 cm error.</p>
-            <div class="tags"><span class="tag">PPO</span><span class="tag">Curriculum</span><span class="tag">Crazyflie</span></div>
+            <div class="tags"><span class="tag">PPO</span><span class="tag">Curriculum Learning</span><span class="tag">Sim-to-Real</span><span class="tag">Isaac Lab</span><span class="tag">Crazyflie</span></div>
           </div>
         </article>
 
@@ -248,7 +261,7 @@
             <div class="title">MPC-based Gait Transition for Unitree A1</div>
             <div class="meta">Jan 2024 – May 2024 · Optimal Control &amp; RL · Prof. Zachary Manchester</div>
             <p class="summary">An RL + LQR controller for seamless transitions between 3 gaits within 2 seconds, using contact-implicit trajectory optimization in MuJoCo.</p>
-            <div class="tags"><span class="tag">MPC</span><span class="tag">LQR</span><span class="tag">Contact-implicit TO</span></div>
+            <div class="tags"><span class="tag">MPC</span><span class="tag">MuJoCo</span><span class="tag">LQR</span><span class="tag">Contact-implicit TO</span></div>
           </div>
         </article>
 
@@ -267,26 +280,33 @@
     <section>
       <h2>Publications</h2>
       <div class="pub">
-        <div><span class="pub-title">Allometric Scaling Laws for Bipedal Robots</span></div>
-        <div class="pub-venue">B. Gu, et al. · Submitted, IROS 2026 · arXiv:2603.22560</div>
+        <div><span class="pub-title">Penguin-inspired Bipedal Locomotion</span><span class="pub-badge">in prep</span></div>
+        <div class="pub-venue"><strong>B. Gu</strong>, et al. · In preparation for ICRA 2027 (Seoul)</div>
       </div>
       <div class="pub">
-        <div><span class="pub-title">Penguin-inspired Biped for Low-Friction Slopes</span><span class="pub-badge">accepted</span></div>
-        <div class="pub-venue">B. Gu, et al. · Workshop, ICRA 2026 (Vienna)</div>
+        <div><span class="pub-title">A Penguin-Inspired Bipedal Robot for Low-Friction Surface Walking</span><span class="pub-badge">accepted</span></div>
+        <div class="pub-venue">N. Oke*, <strong>B. Gu*</strong>, et al. · Workshop, ICRA 2026 (Vienna)</div>
       </div>
       <div class="pub">
-        <div><span class="pub-title">Self-Stabilizing Penguin-inspired Bipedal Locomotion</span><span class="pub-badge">in prep</span></div>
-        <div class="pub-venue">B. Gu, et al. · In preparation for ICRA 2027 (Seoul)</div>
+        <div><span class="pub-title">Allometric Scaling Laws for Bipedal Robots</span><span class="pub-badge">under review</span></div>
+        <div class="pub-venue">N. Oke, A. Carter, <strong>B. Gu</strong>, et al. · Submitted, IROS 2026 · arXiv:2603.22560</div>
       </div>
     </section>
-
     <section>
       <h2>Selected Media</h2>
       <div class="media-grid">
-        <div class="media-tile"><span>▶ MUGATU WALKING DEMO</span></div>
-        <div class="media-tile"><span>▶ PENGUIN BIPED MOCAP</span></div>
-        <div class="media-tile"><span>▶ CRAZYFLIE LANDING</span></div>
-        <div class="media-tile"><span>▶ GO2-W IN CROP ROWS</span></div>
+        <figure class="media-item">
+          <div class="media-tile has-media"><img src="uploads/Pengu%20with%20glasses.jpg" alt="Pengu, the penguin namesake of the bipedal robot project" loading="lazy" /></div>
+          <figcaption>Pengu is cosplaying his best friend Ben</figcaption>
+        </figure>
+        <figure class="media-item">
+          <div class="media-tile has-media"><video src="uploads/pengusim.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+          <figcaption>Pengu with a stable gait in simulation, ahead of hardware transfer.</figcaption>
+        </figure>
+        <figure class="media-item">
+          <div class="media-tile has-media"><video src="uploads/penguNFL.mov" autoplay loop muted playsinline preload="metadata"></video></div>
+          <figcaption>Pengu walking on hardware. Live demo at the NFL Draft Tech Demo Day Pittsburgh 2026.</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -296,7 +316,7 @@
     </section>
 
     <footer>
-      <span>© Ben Gu · Last updated Apr 2026</span>
+      <span>© Ben Gu · Last updated May 2026</span>
       <span class="mono">BUILT IN PITTSBURGH, PA</span>
     </footer>
   </main>
@@ -336,12 +356,11 @@
   const STEP_ANGLE = 0.32;
   const STEP_PERIOD = 1.1;
 
-  // Caption label: γ = X° (Y% grade)
+  // Caption label: γ = X° · try to drag
   const slopeDegAbs = Math.abs(SLOPE_DEG);
-  const gradePercent = Math.abs(Math.tan(slope) * 100).toFixed(1);
   const heroHint = document.getElementById('heroHint');
   if (heroHint) {
-    heroHint.textContent = `PASSIVE DYNAMIC WALKER · γ = ${slopeDegAbs.toFixed(1)}° (${gradePercent}% grade)`;
+    heroHint.textContent = `PASSIVE DYNAMIC WALKER · γ = ${slopeDegAbs.toFixed(1)}° · try to drag`;
   }
 
   // Floor: the floor line passes through a fixed point on screen, angled by -slope
