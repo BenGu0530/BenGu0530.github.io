@@ -41,7 +41,9 @@
     position: relative;
     overflow: hidden;
   }
-  .hero-inner { height: 260px; width: 100%; position: relative; cursor: default; }
+  /* Height grows with width so the full 4.5° slope stays in frame as the window
+     widens (or the user zooms in); JS keeps the SVG coords at 1 unit = 1px. */
+  .hero-inner { height: clamp(170px, 7vw + 120px, 320px); width: 100%; position: relative; cursor: default; }
   .hero-inner.dragging { cursor: grabbing; }
   .hero-svg { width: 100%; height: 100%; display: block; user-select: none; }
   .walker-body { cursor: grab; }
@@ -127,7 +129,32 @@
   .media-item { margin: 0; }
   .media-item figcaption { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
 
-  footer { grid-column: 1 / -1; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; }
+  footer { grid-column: 1 / -1; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  /* ============ RESPONSIVE / MOBILE ============ */
+  /* Tablet & below: collapse the two-column shell into a single stack so the
+     rail flows above the content instead of being squeezed to 280px. */
+  @media (max-width: 860px) {
+    .wrap { grid-template-columns: 1fr; gap: 36px; padding: 36px 28px; }
+    .rail { position: static; top: auto; }
+    .proj-grid { grid-template-columns: 1fr; }
+    .media-grid { grid-template-columns: 1fr; gap: 20px; }
+  }
+
+  /* Phone: tighten type scale, padding, and fixed-width elements. */
+  @media (max-width: 520px) {
+    html, body { font-size: 14px; }
+    .wrap { padding: 28px 18px; gap: 28px; }
+    section { margin-bottom: 40px; }
+    h1 { font-size: 32px; }
+    h2 { font-size: 22px; }
+    .headshot { width: 140px; height: 187px; }
+    .hero-hint { right: 14px; bottom: 8px; font-size: 9px; }
+    .news-row { grid-template-columns: 64px 1fr; gap: 12px; }
+    .proj-card .body { padding: 16px 16px 18px; }
+    .media-tile img, .media-tile video { max-height: 70vh; }
+    footer { flex-direction: column; gap: 6px; }
+  }
 </style>
 </head>
 <body>
@@ -342,7 +369,7 @@
    Ground is full-width (svg viewBox 0..1600).
 ────────────────────────────────────────────────────────────── */
 (function () {
-  const SVG_W = 1600, SVG_H = 260;
+  let SVG_W = 1600, SVG_H = 260;
   const svg = document.getElementById('heroSvg');
   const heroBox = document.getElementById('heroBox');
   const walkerG = document.getElementById('walkerGroup');
@@ -363,10 +390,25 @@
     heroHint.textContent = `PASSIVE DYNAMIC WALKER · γ = ${slopeDegAbs.toFixed(1)}° · try to drag`;
   }
 
-  // Floor: the floor line passes through a fixed point on screen, angled by -slope
-  // We draw it across the entire SVG width.
-  const FLOOR_ANCHOR_Y = 200;   // y-coord where floor crosses screen center x
-  const ANCHOR_X = SVG_W / 2;
+  // Floor: the floor line passes through a fixed point on screen, angled by -slope.
+  // SVG_W/SVG_H track the hero's real pixel size (1 unit = 1px) so the slope keeps a
+  // true 4.5° on screen and the walker stays a constant size at any window width/zoom.
+  let FLOOR_ANCHOR_Y = SVG_H - 56;   // y where floor crosses screen center x
+  let ANCHOR_X = SVG_W / 2;
+
+  // Sync the SVG coordinate system to the element's pixel box, then re-derive anchors.
+  // viewBox aspect always equals the element aspect, so preserveAspectRatio="none"
+  // maps 1 unit -> 1px with no distortion.
+  function measure() {
+    const rect = heroBox.getBoundingClientRect();
+    SVG_W = Math.max(320, Math.round(rect.width));
+    SVG_H = Math.max(150, Math.round(rect.height));
+    ANCHOR_X = SVG_W / 2;
+    FLOOR_ANCHOR_Y = SVG_H - 56;
+    svg.setAttribute('viewBox', `0 0 ${SVG_W} ${SVG_H}`);
+    svg.setAttribute('preserveAspectRatio', 'none');
+  }
+  measure();
 
   // Returns floor Y at given world X
   const floorYAt = (x) => FLOOR_ANCHOR_Y - (x - ANCHOR_X) * Math.tan(slope);
@@ -408,6 +450,17 @@
   // Walker state (position is the HIP in world coords)
   let hipX = ANCHOR_X;
   let hipY = FLOOR_ANCHOR_Y - L * Math.cos(slope); // hip sits L above floor; rocker belly is at the leg tip
+
+  // Re-fit the scene on any resize/zoom and keep the walker on-screen and on the floor.
+  const ro = new ResizeObserver(() => {
+    measure();
+    hipX = Math.max(100, Math.min(SVG_W - 100, hipX));
+    if (state === STATE.WALK || state === STATE.SETTLE) {
+      hipY = floorYAt(hipX) - L * Math.cos(slope);
+    }
+    drawGround();
+  });
+  ro.observe(heroBox);
   let vx = 0, vy = 0;                              // velocity for physics
   let bodyAngle = 0;                               // body rotation (around hip), rad
   let bodyAngVel = 0;                              // angular velocity

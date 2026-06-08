@@ -63,6 +63,20 @@
 
   footer { text-align: center; margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; }
 
+  /* ============ RESPONSIVE / MOBILE ============ */
+  @media (max-width: 640px) {
+    .topbar { padding: 12px 18px; }
+    .page { padding: 32px 20px 56px; }
+    header.cv-head { grid-template-columns: 1fr; gap: 14px; }
+    header.cv-head h1 { font-size: 40px; }
+    header.cv-head .contact { text-align: left; }
+    .entry .row { grid-template-columns: 1fr; gap: 2px; }
+    .entry .dates { white-space: normal; }
+    .kv { grid-template-columns: 1fr; gap: 2px 0; }
+    .kv .k { padding-top: 8px; }
+    .course-grid { grid-template-columns: 1fr; }
+  }
+
   @media print {
     .topbar { display: none; }
     .page { max-width: none; padding: 20px 40px; }
