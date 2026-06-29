@@ -152,11 +152,10 @@
     <header class="cv-head">
       <div>
         <h1>Ben Gu</h1>
-        <div class="sub">Curriculum Vitae · Updated April 2026</div>
+        <div class="sub">Curriculum Vitae · Updated June 2026</div>
       </div>
       <div class="contact">
-        <div>(646) 647-4298</div>
-        <div><a href="/cdn-cgi/l/email-protection#8eecebe0e9fbceefe0eafcebf9a0ede3fba0ebeafb"><span class="__cf_email__" data-cfemail="9af8fff4fdefdafbf4fee8ffedb4f9f7efb4fffeef">[email&#160;protected]</span></a></div>
+        <div><a href="#" data-user="bengu" data-domain="andrew.cmu.edu">bengu [at] andrew.cmu.edu</a></div>
         <div><a href="https://www.linkedin.com/in/bengurobotics/">linkedin.com/in/bengurobotics</a></div>
         <div><a href="https://github.com/BenGu0530">github.com/BenGu0530</a></div>
         <div><a href="https://scholar.google.com/citations?user=yJznh-0AAAAJ">Google Scholar</a></div>
@@ -306,7 +305,15 @@
       <div>Legged Systems</div>
     </div>
 
-    <footer>Ben Gu · CV · April 2026 · Pittsburgh, PA</footer>
+    <footer>Ben Gu · CV · June 2026 · Pittsburgh, PA</footer>
   </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+<script>
+/* Construct email links at runtime so scrapers don't harvest the address. */
+(function () {
+  document.querySelectorAll('a[data-user][data-domain]').forEach(function (el) {
+    var u = el.dataset.user, d = el.dataset.domain;
+    el.href = 'mailto:' + u + '@' + d;
+  });
+})();
+</script></body>
 </html>
