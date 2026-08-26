@@ -157,6 +157,8 @@
   .pub .pub-venue { color: var(--muted); font-size: 13px; }
   .pub .pub-badge { display: inline-block; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; padding: 1px 6px; background: var(--accent); color: var(--bg); border-radius: 2px; margin-left: 8px; letter-spacing: 0.04em; }
 
+  .pub-note { font-size: 12px; color: var(--muted); font-style: italic; margin-top: 10px; }
+
   .media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
   .media-tile { background: var(--card); border: 1px solid var(--line); position: relative; overflow: hidden; width: fit-content; max-width: 100%; margin: 0 auto; }
   .media-tile img, .media-tile video { display: block; width: auto; height: auto; max-width: 100%; max-height: 480px; }
@@ -241,7 +243,7 @@
   <main>
     <section>
       <p style="margin-top: 0">I'm a first-year M.S. student in Robotics at Carnegie Mellon, advised by <a href="https://www.andrew.cmu.edu/user/amj1/" target="_blank" rel="noopener">Professor Aaron M. Johnson</a> in the <a href="https://www.cmu.edu/me/robomechanicslab/" target="_blank">Robomechanics Lab</a>.</p>
-      <p>I build minimally-actuated bipedal robots that walk in the real world. Right now, I'm working on a penguin-inspired biped for low-friction slopes and Mugatu, the first steerable single-motor biped. I'm targeting ICRA 2027 as lead author. In 2026 summer, I'm joining a stealth AI company as a Physical AI intern.</p>
+      <p>I build minimally-actuated bipedal robots that walk in the real world. Right now, I'm working on a penguin-inspired biped for low-friction slopes and Mugatu, the first steerable single-motor biped. I'm targeting ICRA 2027 as co-first author. In 2026 summer, I'm joining a stealth AI company as a Physical AI intern.</p>
       <div class="interests">
         <span class="chip">Legged locomotion</span>
         <span class="chip">Reinforcement learning</span>
@@ -261,7 +263,7 @@
     <section>
       <h2>News</h2>
       <div class="news-row"><div class="date">May 2026</div><div>Joining a stealth AI company as a Physical AI intern for the summer.</div></div>
-      <div class="news-row"><div class="date">Apr 2026</div><div>Invited to present a first-author workshop paper at ICRA 2026 in Vienna on the penguin-inspired biped.</div></div>
+      <div class="news-row"><div class="date">Apr 2026</div><div>Invited to present a co-first-author workshop paper at ICRA 2026 in Vienna on the penguin-inspired biped.</div></div>
       <div class="news-row"><div class="date">Mar 2026</div><div><a href="https://arxiv.org/abs/2603.22560v2" target="_blank" rel="noopener">"Allometric Scaling Laws for Bipedal Robots"</a> submitted to IROS 2026.</div></div>
       <div class="news-row"><div class="date">Jan 2026</div><div>Presented Mugatu work at the Gordon Research Conference on Robotics.</div></div>
       <div class="news-row"><div class="date">Aug 2025</div><div>Started my M.S. in Robotics at CMU, continuing in the Robomechanics Lab.</div></div>
@@ -281,7 +283,7 @@
           <li>Full-stack ownership of a mobile robot platform, with primary focus on developing RSL-RL policies to replace a model-based QP/IK posture controller, closing the sim-to-real gap and validating outdoors on untrained terrain.</li>
           <li>Benchmarked reactive, recurrent and teacher-distilled architectures under one reward and observation contract; direct RL trained the recurrent policy to deployment without the two-stage distillation pipeline, cutting a stage from the standard approach.</li>
         </ul>
-        <div class="tags"><span class="tag">RSL-RL</span><span class="tag">Sim-to-Real</span><span class="tag">Recurrent Policy</span><span class="tag">Teacher Distillation</span><span class="tag">QP/IK</span><span class="tag">Mobile Robot</span></div>
+        <div class="tags"><span class="tag">Mechanical Design</span><span class="tag">Electronics</span><span class="tag">Hardware Integration</span><span class="tag">RSL-RL</span><span class="tag">Sim-to-Real</span><span class="tag">Recurrent Policy</span><span class="tag">Teacher Distillation</span><span class="tag">QP/IK</span><span class="tag">Mobile Robot</span></div>
       </article>
     </section>
 
@@ -296,8 +298,8 @@
             <p class="summary">A 5-DOF bipedal robot with a crank-link leg extension that captures macaroni penguin inertial properties. Currently training with a CPG-RL framework for stable, biomimetic walking on viscous, slippery, and sloped surfaces.</p>
             <div class="tags"><span class="tag">Hardware</span><span class="tag">Morphology Design</span><span class="tag">CPG-RL</span><span class="tag">MuJoCo</span><span class="tag">Isaac Lab</span><span class="tag">Sim-to-Real</span></div>
             <div class="target">
-              → Lead-author submission to ICRA 2027<br>
-              → First-author workshop at ICRA 2026<br>
+              → Co-first-author submission to ICRA 2027<br>
+              → Co-first-author workshop at ICRA 2026<br>
               → Featured at NFL Draft Tech Demo Day 2026
             </div>
           </div>
@@ -378,7 +380,7 @@
       <h2>Publications</h2>
       <div class="pub">
         <div><span class="pub-title">Penguin-inspired Bipedal Locomotion</span><span class="pub-badge">in prep</span></div>
-        <div class="pub-venue"><strong>B. Gu</strong>, et al. · In preparation for ICRA 2027 (Seoul)</div>
+        <div class="pub-venue"><strong>B. Gu*</strong>, et al. · In preparation for ICRA 2027 (Seoul)</div>
       </div>
       <div class="pub">
         <div><span class="pub-title">A Penguin-Inspired Bipedal Robot for Low-Friction Surface Walking</span><span class="pub-badge">accepted</span></div>
@@ -388,6 +390,7 @@
         <div><span class="pub-title">Allometric Scaling Laws for Bipedal Robots</span><span class="pub-badge">under review</span></div>
         <div class="pub-venue">N. Oke, A. Carter, <strong>B. Gu</strong>, et al. · Submitted, IROS 2026 · arXiv:2603.22560</div>
       </div>
+      <div class="pub-note">* Denotes equal contribution (co-first author).</div>
     </section>
     <section>
       <h2>Selected Media</h2>
