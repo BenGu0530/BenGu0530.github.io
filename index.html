@@ -147,8 +147,8 @@
   .proj-card .title { font-weight: 600; font-size: 16px; margin-bottom: 4px; letter-spacing: -0.005em; }
   .proj-card .meta { color: var(--muted); font-size: 12.5px; margin-bottom: 10px; }
   .proj-card .summary { margin: 0 0 12px; font-size: 14px; color: #2a2a2a; }
-  .proj-card .tags { display: flex; flex-wrap: wrap; gap: 4px; }
-  .proj-card .tag { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; padding: 2px 7px; background: var(--card); color: var(--muted); border-radius: 2px; letter-spacing: 0.04em; }
+  .proj-card .tags, .exp-card .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .proj-card .tag, .exp-card .tag { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; padding: 2px 7px; background: var(--card); color: var(--muted); border-radius: 2px; letter-spacing: 0.04em; }
   .proj-card .target { font-size: 12.5px; color: var(--accent); margin-top: 10px; font-style: italic; }
 
   .pub { padding: 12px 0; border-top: 1px solid var(--line); font-size: 14px; }
@@ -164,6 +164,22 @@
   .media-item figcaption { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
 
   footer { grid-column: 1 / -1; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  /* ============ EXPERIENCE ============ */
+  .exp-card {
+    border: 1px solid var(--line); border-radius: 2px;
+    background: var(--bg);
+    padding: 18px 20px 20px;
+    transition: border-color .2s, transform .2s;
+  }
+  .exp-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .exp-card .head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .exp-card .title { font-weight: 600; font-size: 16px; letter-spacing: -0.005em; }
+  .exp-card .dates { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+  .exp-card .meta { color: var(--muted); font-size: 12.5px; margin: 4px 0 12px; }
+  .exp-card ul { margin: 0 0 12px; padding-left: 18px; font-size: 14px; color: #2a2a2a; }
+  .exp-card li { margin-bottom: 6px; }
+  .exp-card li:last-child { margin-bottom: 0; }
 
   /* ============ RESPONSIVE / MOBILE ============ */
   /* Tablet & below: collapse the two-column shell into a single stack so the
@@ -254,6 +270,22 @@
     </section>
 
     <section>
+      <h2>Experience</h2>
+      <article class="exp-card">
+        <div class="head">
+          <div class="title">Physical AI Engineer Intern</div>
+          <div class="dates">Summer 2026</div>
+        </div>
+        <div class="meta">Stealth Robotics Startup · Boston, MA</div>
+        <ul>
+          <li>Full-stack ownership of a mobile robot platform, with primary focus on developing RSL-RL policies to replace a model-based QP/IK posture controller, closing the sim-to-real gap and validating outdoors on untrained terrain.</li>
+          <li>Benchmarked reactive, recurrent and teacher-distilled architectures under one reward and observation contract; direct RL trained the recurrent policy to deployment without the two-stage distillation pipeline, cutting a stage from the standard approach.</li>
+        </ul>
+        <div class="tags"><span class="tag">RSL-RL</span><span class="tag">Sim-to-Real</span><span class="tag">Recurrent Policy</span><span class="tag">Teacher Distillation</span><span class="tag">QP/IK</span><span class="tag">Mobile Robot</span></div>
+      </article>
+    </section>
+
+    <section>
       <h2>Ongoing Research</h2>
       <div class="proj-grid">
         <article class="proj-card">
@@ -261,13 +293,13 @@
           <div class="body">
             <div class="title">Pengu: Macaroni Penguin-inspired Bipedal Robot</div>
             <div class="meta">May 2025 – Present · Research Assistant, Robomechanics Lab</div>
-            <p class="summary">A 5-DOF bipedal robot with a  crank-link leg extension that captures macaroni penguin inertial properties. Currently training with a CPG-RL framework for stable, biomimetic walking on viscous, slippery, and sloped surfaces.</p>
-            <div class="tags"><span class="tag">Hardware</span><span class="tag">Morphology Desgin</span><span class="tag">CPG-RL</span><span class="tag">MuJoCo</span><span class="tag">Isaac Lab</span><span class="tag">Sim-to-Real</span></div>
+            <p class="summary">A 5-DOF bipedal robot with a crank-link leg extension that captures macaroni penguin inertial properties. Currently training with a CPG-RL framework for stable, biomimetic walking on viscous, slippery, and sloped surfaces.</p>
+            <div class="tags"><span class="tag">Hardware</span><span class="tag">Morphology Design</span><span class="tag">CPG-RL</span><span class="tag">MuJoCo</span><span class="tag">Isaac Lab</span><span class="tag">Sim-to-Real</span></div>
             <div class="target">
               → Lead-author submission to ICRA 2027<br>
               → First-author workshop at ICRA 2026<br>
               → Featured at NFL Draft Tech Demo Day 2026
-            <div>
+            </div>
           </div>
         </article>
 
@@ -281,7 +313,8 @@
             <div class="target">
               → Allometric Scaling Laws for Bipedal Robots — IROS 2026<br>
               → GRC Robotics 2026 · NCUR 2025 · CMU MOTM 2025
-            </div> 
+            </div>
+          </div>
         </article>
       </div>
     </section>
