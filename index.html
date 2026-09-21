@@ -152,7 +152,9 @@
   .proj-card .target { font-size: 12.5px; color: var(--accent); margin-top: 10px; font-style: italic; }
 
   .pub { padding: 12px 0; border-top: 1px solid var(--line); font-size: 14px; }
-  .pub:last-child { border-bottom: 1px solid var(--line); }
+  /* the trailing .pub-note is also a child, so :last-child alone never matches
+     the final entry — :has(+ .pub-note) restores its bottom rule */
+  .pub:last-child, .pub:has(+ .pub-note) { border-bottom: 1px solid var(--line); }
   .pub .pub-title { font-weight: 500; }
   .pub .pub-venue { color: var(--muted); font-size: 13px; }
   .pub .pub-badge { display: inline-block; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; padding: 1px 6px; background: var(--accent); color: var(--bg); border-radius: 2px; margin-left: 8px; letter-spacing: 0.04em; }
@@ -242,8 +244,8 @@
 
   <main>
     <section>
-      <p style="margin-top: 0">I'm a first-year M.S. student in Robotics at Carnegie Mellon, advised by <a href="https://www.andrew.cmu.edu/user/amj1/" target="_blank" rel="noopener">Professor Aaron M. Johnson</a> in the <a href="https://www.cmu.edu/me/robomechanicslab/" target="_blank">Robomechanics Lab</a>.</p>
-      <p>I build minimally-actuated bipedal robots that walk in the real world. Right now, I'm working on a penguin-inspired biped for low-friction slopes and Mugatu, the first steerable single-motor biped. I'm targeting ICRA 2027 as co-first author. In 2026 summer, I'm joining a stealth AI company as a Physical AI intern.</p>
+      <p style="margin-top: 0">I'm a second-year M.S. student in Robotics at Carnegie Mellon, advised by <a href="https://www.andrew.cmu.edu/user/amj1/" target="_blank" rel="noopener">Professor Aaron M. Johnson</a> in the <a href="https://www.cmu.edu/me/robomechanicslab/" target="_blank">Robomechanics Lab</a>.</p>
+      <p>I build minimally-actuated bipedal robots that walk in the real world. Right now I'm working on a penguin-inspired biped for low-friction slopes and on scalable first-order reinforcement learning in JAX/MuJoCo. Our study of penguin-inspired torso stabilization is under review at ICRA 2027, where I'm co-first author. This past summer I was a Physical AI intern at a stealth AI company.</p>
       <div class="interests">
         <span class="chip">Legged locomotion</span>
         <span class="chip">Reinforcement learning</span>
@@ -262,6 +264,8 @@
 
     <section>
       <h2>News</h2>
+      <div class="news-row"><div class="date">Sep 2026</div><div><a href="https://arxiv.org/abs/2609.21185" target="_blank" rel="noopener">"When to Waddle: A Comparative Study of Bipedal Torso-Stabilization on Low-Friction Surfaces"</a> submitted to ICRA 2027 and posted to arXiv.</div></div>
+      <div class="news-row"><div class="date">Sep 2026</div><div>Started a new direction on scalable first-order RL for legged locomotion in JAX/MuJoCo.</div></div>
       <div class="news-row"><div class="date">May 2026</div><div>Joining a stealth AI company as a Physical AI intern for the summer.</div></div>
       <div class="news-row"><div class="date">Apr 2026</div><div>Invited to present a co-first-author workshop paper at ICRA 2026 in Vienna on the penguin-inspired biped.</div></div>
       <div class="news-row"><div class="date">Mar 2026</div><div><a href="https://arxiv.org/abs/2603.22560v2" target="_blank" rel="noopener">"Allometric Scaling Laws for Bipedal Robots"</a> submitted to IROS 2026.</div></div>
@@ -288,7 +292,7 @@
     </section>
 
     <section>
-      <h2>Ongoing Research</h2>
+      <h2>Research</h2>
       <div class="proj-grid">
         <article class="proj-card">
           <div class="thumb has-img"><img src="uploads/PenguDemo.gif" alt="Penguin biped demo" /></div>
@@ -298,7 +302,7 @@
             <p class="summary">A 5-DOF bipedal robot with a crank-link leg extension that captures macaroni penguin inertial properties. Currently training with a CPG-RL framework for stable, biomimetic walking on viscous, slippery, and sloped surfaces.</p>
             <div class="tags"><span class="tag">Hardware</span><span class="tag">Morphology Design</span><span class="tag">CPG-RL</span><span class="tag">MuJoCo</span><span class="tag">Isaac Lab</span><span class="tag">Sim-to-Real</span></div>
             <div class="target">
-              → Co-first-author submission to ICRA 2027<br>
+              → Co-first-author submission under review at ICRA 2027 · arXiv:2609.21185<br>
               → Co-first-author workshop at ICRA 2026<br>
               → Featured at NFL Draft Tech Demo Day 2026
             </div>
@@ -306,10 +310,19 @@
         </article>
 
         <article class="proj-card">
+          <div class="body">
+            <div class="title">Scalable First-Order RL for Legged Locomotion</div>
+            <div class="meta">Sep 2026 – Present · Research Assistant, Robomechanics Lab</div>
+            <p class="summary">A contact-aware exploration mechanism that learns and constrains the contact-at-a-distance strength of a differentiable simulator via automatic temperature tuning. Combined with parallel training and modern architectures, the aim is to match zeroth-order methods (PPO/SAC) in wall-clock time while retaining first-order sample efficiency.</p>
+            <div class="tags"><span class="tag">JAX</span><span class="tag">MuJoCo</span><span class="tag">Differentiable Sim</span><span class="tag">First-Order RL</span><span class="tag">Contact Dynamics</span><span class="tag">Parallel Training</span></div>
+          </div>
+        </article>
+
+        <article class="proj-card">
           <div class="thumb has-img" style="aspect-ratio: 3/4;"><video src="uploads/MugatuSlowMotion.MOV" autoplay loop muted playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: contain; background-color: var(--card); object-position: center;"></video></div>
           <div class="body">
             <div class="title">Mugatu: A Minimally-Actuated Steerable Biped</div>
-            <div class="meta">Dec 2023 – Present · Research Assistant, Robomechanics Lab</div>
+            <div class="meta">Dec 2023 – May 2026 · Research Assistant, Robomechanics Lab</div>
             <p class="summary">The first steerable single-motor biped. I built a PID attitude controller for directional control and analyzed 2D contact dynamics to optimize gait efficiency and limit-cycle stability.</p>
             <div class="tags"><span class="tag">Hardware</span><span class="tag">PID</span><span class="tag">Limit cycles</span><span class="tag">Drake</span><span class="tag">MuJoCo</span></div>
             <div class="target">
@@ -379,16 +392,16 @@
     <section>
       <h2>Publications</h2>
       <div class="pub">
-        <div><span class="pub-title">Penguin-inspired Bipedal Locomotion</span><span class="pub-badge">in prep</span></div>
-        <div class="pub-venue"><strong>B. Gu*</strong>, et al. · In preparation for ICRA 2027 (Seoul)</div>
+        <div><span class="pub-title">When to Waddle: A Comparative Study of Bipedal Torso-Stabilization on Low-Friction Surfaces</span><span class="pub-badge">submitted</span></div>
+        <div class="pub-venue"><strong>B. Gu*</strong>, N. Oke*, et al. · Submitted, ICRA 2027 (Seoul) · <a href="https://arxiv.org/abs/2609.21185" target="_blank" rel="noopener">arXiv:2609.21185</a></div>
       </div>
       <div class="pub">
         <div><span class="pub-title">A Penguin-Inspired Bipedal Robot for Low-Friction Surface Walking</span><span class="pub-badge">accepted</span></div>
-        <div class="pub-venue">N. Oke*, <strong>B. Gu*</strong>, et al. · Workshop, ICRA 2026 (Vienna)</div>
+        <div class="pub-venue"><strong>B. Gu*</strong>, N. Oke*, et al. · Workshop, ICRA 2026 (Vienna)</div>
       </div>
       <div class="pub">
         <div><span class="pub-title">Allometric Scaling Laws for Bipedal Robots</span><span class="pub-badge">under review</span></div>
-        <div class="pub-venue">N. Oke, A. Carter, <strong>B. Gu</strong>, et al. · Submitted, IROS 2026 · arXiv:2603.22560</div>
+        <div class="pub-venue">N. Oke, A. Carter, <strong>B. Gu</strong>, et al. · Submitted, IROS 2026 · <a href="https://arxiv.org/abs/2603.22560" target="_blank" rel="noopener">arXiv:2603.22560</a></div>
       </div>
       <div class="pub-note">* Denotes equal contribution (co-first author).</div>
     </section>
@@ -416,7 +429,7 @@
     </section>
 
     <footer>
-      <span>© Ben Gu · Last updated June 2026</span>
+      <span>© Ben Gu · Last updated September 2026</span>
       <span class="mono">BUILT IN PITTSBURGH, PA</span>
     </footer>
   </main>
