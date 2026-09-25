@@ -245,7 +245,7 @@
   <main>
     <section>
       <p style="margin-top: 0">I'm a second-year M.S. student in Robotics at Carnegie Mellon, advised by <a href="https://www.andrew.cmu.edu/user/amj1/" target="_blank" rel="noopener">Professor Aaron M. Johnson</a> in the <a href="https://www.cmu.edu/me/robomechanicslab/" target="_blank">Robomechanics Lab</a>.</p>
-      <p>I build minimally-actuated bipedal robots that walk in the real world. Right now I'm working on a penguin-inspired biped for low-friction slopes and on scalable first-order reinforcement learning in JAX/MuJoCo. Our study of penguin-inspired torso stabilization is under review at ICRA 2027, where I'm co-first author. This past summer I was a Physical AI intern at a stealth AI company.</p>
+      <p>I build minimally-actuated bipedal robots that walk in the real world. Right now I'm working on a penguin-inspired biped for low-friction slopes and on first-order reinforcement learning with differentiable simulation in JAX/MuJoCo. Our study of penguin-inspired torso stabilization is under review at ICRA 2027, where I'm co-first author. This past summer I was a Physical AI intern at a stealth AI company.</p>
       <div class="interests">
         <span class="chip">Legged locomotion</span>
         <span class="chip">Reinforcement learning</span>
@@ -254,43 +254,6 @@
         <span class="chip">Sim-to-real transfer</span>
         <span class="chip">Contact-rich dynamics</span>
       </div>
-    </section>
-
-    <section>
-      <h2>Research Statement</h2>
-      <p>I want to understand how morphology and control can be co-designed so that simple, low-cost legged robots walk robustly outside the lab. I start from biology and physics to extract the minimal mechanism that makes a gait work, then close the loop with reinforcement learning in simulation and transfer policies to hardware. The goal is a tighter design pipeline from animal observation to walking machine, where the mechanism does half the work and the controller does the rest.</p>
-      <p>This work has been shaped by the guidance of my advisor, <a href="https://www.andrew.cmu.edu/user/amj1/" target="_blank" rel="noopener">Professor Aaron M. Johnson</a>, and years of close mentorship from Ph.D. candidates <a href="https://noke-cmu.github.io/naomi-oke-web/" target="_blank" rel="noopener">Naomi Oke</a> and <a href="https://stevenwman.github.io" target="_blank" rel="noopener">Steven Man</a>.</p>
-    </section>
-
-    <section>
-      <h2>News</h2>
-      <div class="news-row"><div class="date">Sep 2026</div><div>"Pengu: A Bipedal Robot for Low-Friction Mobility" accepted to the IROS 2026 workshop on Miniature Multiterrain and Multimodal Locomotion: from Biology to Robotics. Presenting in Pittsburgh this October.</div></div>
-      <div class="news-row"><div class="date">Sep 2026</div><div><a href="https://arxiv.org/abs/2609.21185" target="_blank" rel="noopener">"When to Waddle: A Comparative Study of Bipedal Torso-Stabilization on Low-Friction Surfaces"</a> submitted to ICRA 2027 and posted to arXiv.</div></div>
-      <div class="news-row"><div class="date">Sep 2026</div><div><a href="https://arxiv.org/abs/2603.22560" target="_blank" rel="noopener">"Allometric Scaling Laws for Bipedal Robots"</a> revised and submitted to ICRA 2027.</div></div>
-      <div class="news-row"><div class="date">Sep 2026</div><div>Started a new direction on scalable first-order RL for legged locomotion in JAX/MuJoCo.</div></div>
-      <div class="news-row"><div class="date">May 2026</div><div>Joining a stealth AI company as a Physical AI intern for the summer.</div></div>
-      <div class="news-row"><div class="date">Apr 2026</div><div>Invited to present a co-first-author workshop paper at ICRA 2026 in Vienna on the penguin-inspired biped.</div></div>
-      <div class="news-row"><div class="date">Mar 2026</div><div><a href="https://arxiv.org/abs/2603.22560v2" target="_blank" rel="noopener">"Allometric Scaling Laws for Bipedal Robots"</a> submitted to IROS 2026.</div></div>
-      <div class="news-row"><div class="date">Jan 2026</div><div>Presented Mugatu work at the Gordon Research Conference on Robotics.</div></div>
-      <div class="news-row"><div class="date">Aug 2025</div><div>Started my M.S. in Robotics at CMU, continuing in the Robomechanics Lab.</div></div>
-      <div class="news-row"><div class="date">May 2025</div><div>Graduated with a B.S. in Mechanical Engineering, 4.0 GPA. CIT Leadership and Service Award.</div></div>
-      <div class="news-row"><div class="date">Mar 2025</div><div>Featured as a lead undergraduate researcher in CMU's <a href="https://www.cmu.edu/news/stories/archives/2025/march/from-exploration-to-innovation-the-impact-of-surf-grants" target="_blank" rel="noopener">SURF grants story</a>.</div></div>
-    </section>
-
-    <section>
-      <h2>Experience</h2>
-      <article class="exp-card">
-        <div class="head">
-          <div class="title">Physical AI Engineer Intern</div>
-          <div class="dates">Summer 2026</div>
-        </div>
-        <div class="meta">Stealth Robotics Startup · Boston, MA</div>
-        <ul>
-          <li>Full-stack ownership of a mobile robot platform, with primary focus on developing RSL-RL policies to replace a model-based QP/IK posture controller, closing the sim-to-real gap and validating outdoors on untrained terrain.</li>
-          <li>Benchmarked reactive, recurrent and teacher-distilled architectures under one reward and observation contract; direct RL trained the recurrent policy to deployment without the two-stage distillation pipeline, cutting a stage from the standard approach.</li>
-        </ul>
-        <div class="tags"><span class="tag">Mechanical Design</span><span class="tag">Electronics</span><span class="tag">Hardware Integration</span><span class="tag">RSL-RL</span><span class="tag">Sim-to-Real</span><span class="tag">Recurrent Policy</span><span class="tag">Teacher Distillation</span><span class="tag">QP/IK</span><span class="tag">Mobile Robot</span></div>
-      </article>
     </section>
 
     <section>
@@ -315,10 +278,10 @@
 
         <article class="proj-card">
           <div class="body">
-            <div class="title">Scalable First-Order RL for Legged Locomotion</div>
+            <div class="title">First-Order Reinforcement Learning with Differentiable Simulation</div>
             <div class="meta">Sep 2026 – Present · Research Assistant, Robomechanics Lab</div>
-            <p class="summary">A contact-aware exploration mechanism that learns and constrains the contact-at-a-distance strength of a differentiable simulator via automatic temperature tuning. Combined with parallel training and modern architectures, the aim is to match zeroth-order methods (PPO/SAC) in wall-clock time while retaining first-order sample efficiency.</p>
-            <div class="tags"><span class="tag">JAX</span><span class="tag">MuJoCo</span><span class="tag">Differentiable Sim</span><span class="tag">First-Order RL</span><span class="tag">Contact Dynamics</span><span class="tag">Parallel Training</span></div>
+            <p class="summary">Responsible for the Unitree G1 humanoid joystick task: converting non-differentiable reward and termination terms into smooth surrogates, tuning first-order training, and benchmarking against zeroth-order baselines (PPO) on sample efficiency and wall-clock time.</p>
+            <div class="tags"><span class="tag">JAX</span><span class="tag">MuJoCo</span><span class="tag">Differentiable Sim</span><span class="tag">First-Order RL</span><span class="tag">Contact Dynamics</span><span class="tag">Parallel Training</span><span class="tag">Unitree G1</span><span class="tag">PPO Baseline</span></div>
           </div>
         </article>
 
@@ -330,13 +293,65 @@
             <p class="summary">The first steerable single-motor biped. I built a PID attitude controller for directional control and analyzed 2D contact dynamics to optimize gait efficiency and limit-cycle stability.</p>
             <div class="tags"><span class="tag">Hardware</span><span class="tag">PID</span><span class="tag">Limit cycles</span><span class="tag">Drake</span><span class="tag">MuJoCo</span></div>
             <div class="target">
-              → Allometric Scaling Laws for Bipedal Robots — under review at ICRA 2027<br>
-              → GRC Robotics 2026 · NCUR 2025 · CMU MOTM 2025<br>
               → Live demo at Robotics &amp; AI Discovery Day 2025
             </div>
           </div>
         </article>
+
+        <article class="proj-card">
+          <div class="thumb has-img"><img src="assets/mugatu_zippy_drake.png" alt="Mugatu and Zippy simulated in Drake at 0.15 m and 0.025 m leg length" /></div>
+          <div class="body">
+            <div class="title">Allometric Scaling Laws for Bipedal Robots</div>
+            <div class="meta">Dec 2023 – May 2026 · Research Assistant, Robomechanics Lab</div>
+            <p class="summary">How should a biped's design change with its size? Surveying existing bipedal robots shows mass scales as L<sup>2</sup> rather than the isometric L<sup>3</sup>. Simulating Mugatu (0.15 m legs) and Zippy (0.025 m legs) in Drake across a 60× range of leg lengths, walking speed follows dynamic similarity (v ∝ L<sup>½</sup>), joint torque scales as mL, and feasible foot size scales linearly with leg length.</p>
+            <div class="tags"><span class="tag">Drake</span><span class="tag">Scaling Laws</span><span class="tag">Passive Dynamics</span><span class="tag">Mugatu</span><span class="tag">Zippy</span><span class="tag">Simulation</span></div>
+            <div class="target">
+              → Under review at ICRA 2027 · arXiv:2603.22560<br>
+              → Presented at GRC Robotics 2026 · NCUR 2025 · CMU MOTM 2025
+            </div>
+          </div>
+        </article>
+
+        <article class="proj-card">
+          <div class="thumb"><span class="placeholder">COMING SOON</span></div>
+          <div class="body">
+            <div class="title">Spine Project</div>
+            <div class="meta">2026 · Robomechanics Lab</div>
+            <p class="summary">Details coming soon.</p>
+          </div>
+        </article>
       </div>
+    </section>
+
+    <section>
+      <h2>News</h2>
+      <div class="news-row"><div class="date">Sep 2026</div><div>"Pengu: A Bipedal Robot for Low-Friction Mobility" accepted to the IROS 2026 workshop on Miniature Multiterrain and Multimodal Locomotion: from Biology to Robotics. Presenting in Pittsburgh this October.</div></div>
+      <div class="news-row"><div class="date">Sep 2026</div><div><a href="https://arxiv.org/abs/2609.21185" target="_blank" rel="noopener">"When to Waddle: A Comparative Study of Bipedal Torso-Stabilization on Low-Friction Surfaces"</a> submitted to ICRA 2027 and posted to arXiv.</div></div>
+      <div class="news-row"><div class="date">Sep 2026</div><div><a href="https://arxiv.org/abs/2603.22560" target="_blank" rel="noopener">"Allometric Scaling Laws for Bipedal Robots"</a> revised and submitted to ICRA 2027.</div></div>
+      <div class="news-row"><div class="date">Sep 2026</div><div>Started on first-order RL with differentiable simulation in JAX/MuJoCo, owning the Unitree G1 humanoid joystick task.</div></div>
+      <div class="news-row"><div class="date">May 2026</div><div>Joining a stealth AI company as a Physical AI intern for the summer.</div></div>
+      <div class="news-row"><div class="date">Apr 2026</div><div>Co-first-author workshop paper on the penguin-inspired biped accepted at ICRA 2026 in Vienna.</div></div>
+      <div class="news-row"><div class="date">Jan 2026</div><div>Presented Mugatu work at the Gordon Research Conference on Robotics.</div></div>
+      <div class="news-row"><div class="date">Aug 2025</div><div>Started my M.S. in Robotics at CMU, continuing in the Robomechanics Lab.</div></div>
+      <div class="news-row"><div class="date">May 2025</div><div>Graduated with a B.S. in Mechanical Engineering, 4.0 GPA. CIT Leadership and Service Award.</div></div>
+      <div class="news-row"><div class="date">Mar 2025</div><div>Featured as a lead undergraduate researcher in CMU's <a href="https://www.cmu.edu/news/stories/archives/2025/march/from-exploration-to-innovation-the-impact-of-surf-grants" target="_blank" rel="noopener">SURF grants story</a>.</div></div>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      <article class="exp-card">
+        <div class="head">
+          <div class="title">Physical AI Engineer Intern</div>
+          <div class="dates">Summer 2026</div>
+        </div>
+        <div class="meta">Stealth Robotics Startup · Boston, MA</div>
+        <ul>
+          <li>Trained a PPO posture-control policy to replace a model-based QP/IK controller; deployed on hardware and iteratively refined with real-world data, validating on outdoor terrain unseen in training (grass, gravel, pavement).</li>
+          <li>Benchmarked reactive, recurrent, and teacher-distilled architectures under one reward and observation contract; direct RL trained the recurrent policy to deployment without the two-stage distillation pipeline.</li>
+          <li>Built the platform full-stack: mechanical and mechatronic design, low-level base controller over CAN, and data pipeline to onboard compute.</li>
+        </ul>
+        <div class="tags"><span class="tag">Mechanical Design</span><span class="tag">Electronics</span><span class="tag">CAN</span><span class="tag">PPO</span><span class="tag">Sim-to-Real</span><span class="tag">Recurrent Policy</span><span class="tag">Teacher Distillation</span><span class="tag">Hardware Deployment</span><span class="tag">Mobile Robot</span></div>
+      </article>
     </section>
 
     <section>
@@ -414,12 +429,17 @@
       </div>
       <div class="pub-note">* Denotes equal contribution (co-first author).</div>
     </section>
+
     <section>
       <h2>Selected Media</h2>
       <div class="media-grid">
         <figure class="media-item">
           <div class="media-tile has-media"><video src="assets/pengu_champions_2x2.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
           <figcaption>Champion gaits from <em>When to Waddle</em> — upright torso (top) vs. penguin torso roll (bottom), each on ice and on floor.</figcaption>
+        </figure>
+        <figure class="media-item">
+          <div class="media-tile has-media"><img src="assets/mugatu_zippy.jpg" alt="Mugatu and Zippy side by side on the lab floor" loading="lazy" /></div>
+          <figcaption>Mugatu (0.15 m legs) and Zippy (0.025 m legs) — the two bipeds behind the scaling study.</figcaption>
         </figure>
         <figure class="media-item">
           <div class="media-tile has-media"><img src="uploads/Pengu%20with%20glasses.jpg" alt="Pengu, the penguin namesake of the bipedal robot project" loading="lazy" /></div>
@@ -434,6 +454,12 @@
           <figcaption>Pengu walking on hardware. Live demo at the NFL Draft Tech Demo Day Pittsburgh 2026.</figcaption>
         </figure>
       </div>
+    </section>
+
+    <section>
+      <h2>Research Statement</h2>
+      <p>I want to understand how morphology and control can be co-designed so that simple, low-cost legged robots walk robustly outside the lab. I start from biology and physics to extract the minimal mechanism that makes a gait work, then close the loop with reinforcement learning in simulation and transfer policies to hardware. The goal is a tighter design pipeline from animal observation to walking machine, where the mechanism does half the work and the controller does the rest.</p>
+      <p>This work has been shaped by the guidance of my advisor, <a href="https://www.andrew.cmu.edu/user/amj1/" target="_blank" rel="noopener">Professor Aaron M. Johnson</a>, and years of close mentorship from Ph.D. candidates <a href="https://noke-cmu.github.io/naomi-oke-web/" target="_blank" rel="noopener">Naomi Oke</a> and <a href="https://stevenwman.github.io" target="_blank" rel="noopener">Steven Man</a>.</p>
     </section>
 
     <section>

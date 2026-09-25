@@ -190,22 +190,23 @@
       </div>
       <div class="role">Stealth Robotics Startup · Boston, MA</div>
       <ul>
-        <li>Full-stack ownership of a mobile robot platform, with primary focus on developing RSL-RL policies to replace a model-based QP/IK posture controller, closing the sim-to-real gap and validating outdoors on untrained terrain.</li>
-        <li>Benchmarked reactive, recurrent and teacher-distilled architectures under one reward and observation contract; direct RL trained the recurrent policy to deployment without the two-stage distillation pipeline, cutting a stage from the standard approach.</li>
+        <li>Trained a PPO posture-control policy to replace a model-based QP/IK controller; deployed on hardware and iteratively refined with real-world data, validating on outdoor terrain unseen in training (grass, gravel, pavement).</li>
+        <li>Benchmarked reactive, recurrent, and teacher-distilled architectures under one reward and observation contract; direct RL trained the recurrent policy to deployment without the two-stage distillation pipeline.</li>
+        <li>Built the platform full-stack: mechanical and mechatronic design, low-level base controller over CAN, and data pipeline to onboard compute.</li>
       </ul>
     </div>
 
     <h2 class="sect">Research</h2>
     <div class="entry">
       <div class="row">
-        <div class="title">Scalable First-Order Reinforcement Learning for Legged Locomotion</div>
+        <div class="title">First-Order Reinforcement Learning with Differentiable Simulation</div>
         <div class="dates">Sep 2026 – Present</div>
       </div>
       <div class="role">Research Assistant, Robomechanics Lab · PI: Prof. Aaron Johnson</div>
       <ul>
-        <li>Developing a contact-aware exploration mechanism that learns and constrains the contact-at-a-distance strength of a differentiable simulator via automatic temperature tuning.</li>
-        <li>Combining parallel training with modern policy architectures to match zeroth-order methods (PPO/SAC) in wall-clock time while retaining first-order sample efficiency.</li>
-        <li>Building the training stack in JAX/MuJoCo.</li>
+        <li>Responsible for the Unitree G1 humanoid joystick task within a first-order RL pipeline built on differentiable simulation in JAX/MuJoCo.</li>
+        <li>Converting non-differentiable reward and termination terms into smooth surrogates and tuning first-order training.</li>
+        <li>Benchmarking against zeroth-order baselines (PPO) on sample efficiency and wall-clock time.</li>
       </ul>
     </div>
 
@@ -235,7 +236,20 @@
         <li>Conducted 2D contact dynamics analysis in MATLAB to investigate limit cycle stability and optimize gait efficiency.</li>
         <li>Validated non-linear dynamics and steering manifolds using Drake and MuJoCo to bridge theoretical stability, simulation, and physical execution.</li>
       </ul>
-      <div class="publ">→ "Allometric Scaling Laws for Bipedal Robots" · Submitted ICRA 2027 · arXiv:2603.22560 · GRC Robotics 2026, NCUR 2025, CMU MOTM 2025 · Live demo, Robotics &amp; AI Discovery Day 2025</div>
+      <div class="publ">→ Live demo, Robotics &amp; AI Discovery Day 2025</div>
+    </div>
+
+    <div class="entry">
+      <div class="row">
+        <div class="title">Allometric Scaling Laws for Bipedal Robots</div>
+        <div class="dates">Dec 2023 – May 2026</div>
+      </div>
+      <div class="role">Research Assistant, Robomechanics Lab · PI: Prof. Aaron Johnson</div>
+      <ul>
+        <li>How should a biped's design change with its size? A survey of existing bipedal robots shows mass scales as L<sup>2</sup> rather than the isometric L<sup>3</sup>.</li>
+        <li>Mugatu (0.15 m legs) and Zippy (0.025 m legs) simulated in Drake across a 60× range of leg lengths: walking speed follows dynamic similarity (v ∝ L<sup>½</sup>), joint torque scales as mL, and feasible foot size scales linearly with leg length.</li>
+      </ul>
+      <div class="publ">→ Under review, ICRA 2027 (Seoul) · arXiv:2603.22560 · Presented at GRC Robotics 2026, NCUR 2025, CMU MOTM 2025</div>
     </div>
 
     <h2 class="sect">Projects</h2>
