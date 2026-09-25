@@ -100,6 +100,8 @@
   .contact .label { color: var(--muted); width: 52px; flex-shrink: 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
 
   section { margin-bottom: 56px; }
+  /* the intro has no heading and only two lines, so the standard gap reads as a hole */
+  section.intro { margin-bottom: 24px; }
   h2 { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 26px; letter-spacing: -0.01em; margin: 0 0 20px; border-bottom: 1px solid var(--line); padding-bottom: 8px; display: flex; align-items: baseline; justify-content: space-between; }
   h2 .count { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; }
   p { margin: 0 0 12px; }
@@ -243,7 +245,7 @@
   </aside>
 
   <main>
-    <section>
+    <section class="intro">
       <p style="margin-top: 0">I'm a second-year M.S. student in Robotics at the <a href="https://www.ri.cmu.edu" target="_blank" rel="noopener">Carnegie Mellon University Robotics Institute</a>, advised by <a href="https://www.andrew.cmu.edu/user/amj1/" target="_blank" rel="noopener">Professor Aaron M. Johnson</a> in the <a href="https://www.cmu.edu/me/robomechanicslab/" target="_blank">Robomechanics Lab</a>.</p>
       <p>I build minimally-actuated bipedal robots that walk in the real world. Right now that's a penguin-inspired biped for low-friction surfaces, plus a project playing with first-order RL.</p>
     </section>
