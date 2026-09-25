@@ -120,6 +120,11 @@
 
   /* ============ PROJECT CARDS (image on top, text below) ============ */
   .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  /* Research stacks cards in two independent columns rather than grid rows, so a
+     short text-only card isn't stretched to match a tall neighbour and the next
+     card can move up beneath it. Collapses to one column with .proj-grid. */
+  .proj-masonry { align-items: start; }
+  .proj-masonry .col { display: flex; flex-direction: column; gap: 20px; }
   .proj-card {
     display: flex; flex-direction: column;
     border: 1px solid var(--line); border-radius: 2px;
@@ -252,68 +257,71 @@
 
     <section>
       <h2>Research</h2>
-      <div class="proj-grid">
-        <article class="proj-card">
-          <div class="thumb has-img"><img src="uploads/PenguDemo.gif" alt="Penguin biped demo" /></div>
-          <div class="body">
-            <div class="title">Pengu: Macaroni Penguin-inspired Bipedal Robot</div>
-            <div class="meta">May 2025 – Present · Robomechanics Lab</div>
-            <p class="summary">A 5-DOF bipedal robot with a crank-link leg extension that captures macaroni penguin inertial properties. Currently training with a CPG-RL framework for stable, biomimetic walking on viscous, slippery, and sloped surfaces.</p>
-            <div class="tags"><span class="tag">Hardware</span><span class="tag">Morphology Design</span><span class="tag">CPG-RL</span><span class="tag">MuJoCo</span><span class="tag">Isaac Lab</span><span class="tag">Sim-to-Real</span></div>
-            <div class="target">
-              → Co-first-author submission under review at ICRA 2027 · <a href="https://arxiv.org/abs/2609.21185" target="_blank" rel="noopener">arXiv:2609.21185</a><br>
-              → Co-first-author workshop accepted at IROS 2026 (Pittsburgh, Oct)<br>
-              → Co-first-author workshop at ICRA 2026 (Vienna)<br>
-              → Featured at NFL Draft Tech Demo Day 2026<br>
-              → Live demo at Robotics &amp; AI Discovery Day 2026 · <a href="https://www.facebook.com/CMUEngineering/posts/1510226274477777" target="_blank" rel="noopener">featured by CMU College of Engineering</a>
+      <div class="proj-grid proj-masonry">
+        <div class="col">
+          <article class="proj-card">
+            <div class="thumb has-img"><img src="uploads/PenguDemo.gif" alt="Penguin biped demo" /></div>
+            <div class="body">
+              <div class="title">Pengu: Macaroni Penguin-inspired Bipedal Robot</div>
+              <div class="meta">May 2025 – Present · Robomechanics Lab</div>
+              <p class="summary">A 5-DOF bipedal robot with a crank-link leg extension that captures macaroni penguin inertial properties. Currently training with a CPG-RL framework for stable, biomimetic walking on viscous, slippery, and sloped surfaces.</p>
+              <div class="tags"><span class="tag">Hardware</span><span class="tag">Morphology Design</span><span class="tag">CPG-RL</span><span class="tag">MuJoCo</span><span class="tag">Isaac Lab</span><span class="tag">Sim-to-Real</span></div>
+              <div class="target">
+                → Co-first-author submission under review at ICRA 2027 · <a href="https://arxiv.org/abs/2609.21185" target="_blank" rel="noopener">arXiv:2609.21185</a><br>
+                → Co-first-author workshop accepted at IROS 2026 (Pittsburgh, Oct)<br>
+                → Co-first-author workshop at ICRA 2026 (Vienna)<br>
+                → Featured at NFL Draft Tech Demo Day 2026<br>
+                → Live demo at Robotics &amp; AI Discovery Day 2026 · <a href="https://www.facebook.com/CMUEngineering/posts/1510226274477777" target="_blank" rel="noopener">featured by CMU College of Engineering</a>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="proj-card">
-          <div class="body">
-            <div class="title">First-Order Reinforcement Learning with Differentiable Simulation</div>
-            <div class="meta">Sep 2026 – Present · Robomechanics Lab</div>
-            <p class="summary">Responsible for the Unitree G1 humanoid joystick task: converting non-differentiable reward and termination terms into smooth surrogates, tuning first-order training, and benchmarking against zeroth-order baselines (PPO) on sample efficiency and wall-clock time.</p>
-            <div class="tags"><span class="tag">JAX</span><span class="tag">MuJoCo</span><span class="tag">Differentiable Sim</span><span class="tag">First-Order RL</span><span class="tag">Contact Dynamics</span><span class="tag">Parallel Training</span><span class="tag">Unitree G1</span><span class="tag">PPO Baseline</span></div>
-          </div>
-        </article>
-
-        <article class="proj-card">
-          <div class="thumb has-img" style="aspect-ratio: 3/4;"><video src="uploads/MugatuSlowMotion.MOV" autoplay loop muted playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: contain; background-color: var(--card); object-position: center;"></video></div>
-          <div class="body">
-            <div class="title">Mugatu: A Minimally-Actuated Steerable Biped</div>
-            <div class="meta">Dec 2023 – May 2026 · Robomechanics Lab</div>
-            <p class="summary">The first steerable single-motor biped. I built a PID attitude controller for directional control and analyzed 2D contact dynamics to optimize gait efficiency and limit-cycle stability.</p>
-            <div class="tags"><span class="tag">Hardware</span><span class="tag">PID</span><span class="tag">Limit cycles</span><span class="tag">Drake</span><span class="tag">MuJoCo</span></div>
-            <div class="target">
-              → Live demo at Robotics &amp; AI Discovery Day 2025
+          <article class="proj-card">
+            <div class="thumb has-img" style="aspect-ratio: 3/4;"><video src="uploads/MugatuSlowMotion.MOV" autoplay loop muted playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: contain; background-color: var(--card); object-position: center;"></video></div>
+            <div class="body">
+              <div class="title">Mugatu: A Minimally-Actuated Steerable Biped</div>
+              <div class="meta">Dec 2023 – May 2026 · Robomechanics Lab</div>
+              <p class="summary">The first steerable single-motor biped. I built a PID attitude controller for directional control and analyzed 2D contact dynamics to optimize gait efficiency and limit-cycle stability.</p>
+              <div class="tags"><span class="tag">Hardware</span><span class="tag">PID</span><span class="tag">Limit cycles</span><span class="tag">Drake</span><span class="tag">MuJoCo</span></div>
+              <div class="target">
+                → Live demo at Robotics &amp; AI Discovery Day 2025
+              </div>
             </div>
-          </div>
-        </article>
-
-        <article class="proj-card">
-          <div class="thumb has-img"><img src="assets/mugatu_zippy_drake.png" alt="Mugatu and Zippy simulated in Drake at 0.15 m and 0.025 m leg length" /></div>
-          <div class="body">
-            <div class="title">Allometric Scaling Laws for Bipedal Robots</div>
-            <div class="meta">Dec 2023 – May 2026 · Robomechanics Lab</div>
-            <p class="summary">How should a biped's design change with its size? Surveying existing bipedal robots shows mass scales as L<sup>2</sup> rather than the isometric L<sup>3</sup>. Simulating Mugatu (0.15 m legs) and Zippy (0.025 m legs) in Drake across a 60× range of leg lengths, walking speed follows dynamic similarity (v ∝ L<sup>½</sup>), joint torque scales as mL, and feasible foot size scales linearly with leg length.</p>
-            <div class="tags"><span class="tag">Drake</span><span class="tag">Scaling Laws</span><span class="tag">Passive Dynamics</span><span class="tag">Mugatu</span><span class="tag">Zippy</span><span class="tag">Simulation</span></div>
-            <div class="target">
-              → Under review at ICRA 2027 · <a href="https://arxiv.org/abs/2603.22560" target="_blank" rel="noopener">arXiv:2603.22560</a><br>
-              → Presented at GRC Robotics 2026 · NCUR 2025 · CMU MOTM 2025
+          </article>
+        </div>
+        <div class="col">
+          <article class="proj-card">
+            <div class="body">
+              <div class="title">First-Order Reinforcement Learning with Differentiable Simulation</div>
+              <div class="meta">Sep 2026 – Present · Robomechanics Lab</div>
+              <p class="summary">Responsible for the Unitree G1 humanoid joystick task: converting non-differentiable reward and termination terms into smooth surrogates, tuning first-order training, and benchmarking against zeroth-order baselines (PPO) on sample efficiency and wall-clock time.</p>
+              <div class="tags"><span class="tag">JAX</span><span class="tag">MuJoCo</span><span class="tag">Differentiable Sim</span><span class="tag">First-Order RL</span><span class="tag">Contact Dynamics</span><span class="tag">Parallel Training</span><span class="tag">Unitree G1</span><span class="tag">PPO Baseline</span></div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="proj-card">
-          <div class="thumb"><span class="placeholder">COMING SOON</span></div>
-          <div class="body">
-            <div class="title">Spine for Locomotion Agility</div>
-            <div class="meta">Aug 2026 – Present · Robomechanics Lab</div>
-            <p class="summary">Details coming soon.</p>
-          </div>
-        </article>
+          <article class="proj-card">
+            <div class="thumb has-img"><img src="assets/mugatu_zippy_drake.png" alt="Mugatu and Zippy simulated in Drake at 0.15 m and 0.025 m leg length" /></div>
+            <div class="body">
+              <div class="title">Allometric Scaling Laws for Bipedal Robots</div>
+              <div class="meta">Dec 2023 – May 2026 · Robomechanics Lab</div>
+              <p class="summary">How should a biped's design change with its size? Surveying existing bipedal robots shows mass scales as L<sup>2</sup> rather than the isometric L<sup>3</sup>. Simulating Mugatu (0.15 m legs) and Zippy (0.025 m legs) in Drake across a 60× range of leg lengths, walking speed follows dynamic similarity (v ∝ L<sup>½</sup>), joint torque scales as mL, and feasible foot size scales linearly with leg length.</p>
+              <div class="tags"><span class="tag">Drake</span><span class="tag">Scaling Laws</span><span class="tag">Passive Dynamics</span><span class="tag">Mugatu</span><span class="tag">Zippy</span><span class="tag">Simulation</span></div>
+              <div class="target">
+                → Under review at ICRA 2027 · <a href="https://arxiv.org/abs/2603.22560" target="_blank" rel="noopener">arXiv:2603.22560</a><br>
+                → Presented at GRC Robotics 2026 · NCUR 2025 · CMU MOTM 2025
+              </div>
+            </div>
+          </article>
+
+          <article class="proj-card">
+            <div class="thumb"><span class="placeholder">COMING SOON</span></div>
+            <div class="body">
+              <div class="title">Spine for Locomotion Agility</div>
+              <div class="meta">Aug 2026 – Present · Robomechanics Lab</div>
+              <p class="summary">Details coming soon.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
