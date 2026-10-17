@@ -263,15 +263,16 @@
             <div class="thumb has-img"><img src="uploads/PenguDemo.gif" alt="Penguin biped demo" /></div>
             <div class="body">
               <div class="title">Pengu: Macaroni Penguin-inspired Bipedal Robot</div>
-              <div class="meta">May 2025 – Present · Robomechanics Lab</div>
-              <p class="summary">A 5-DOF bipedal robot with a crank-link leg extension that captures macaroni penguin inertial properties. Currently training with a CPG-RL framework for stable, biomimetic walking on viscous, slippery, and sloped surfaces.</p>
-              <div class="tags"><span class="tag">Hardware</span><span class="tag">Morphology Design</span><span class="tag">CPG-RL</span><span class="tag">MuJoCo</span><span class="tag">Isaac Lab</span><span class="tag">Sim-to-Real</span></div>
+              <div class="meta">Aug 2025 – Present · Robomechanics Lab</div>
+              <p class="summary">A 5-DOF biped with a crank-slider leg extension and adjustable center-of-mass height, built around macaroni penguin inertial properties. In MuJoCo and on hardware with motion capture, penguin-style torso-over-stance-leg motion with a high COM was 1.8× faster with 44% lower cost of transport than an upright gait at μ = 0.12, reversing at μ = 0.45. CPG-RL and imitation RL policies now climb 6° slopes at μ = 0.1 in simulation.</p>
+              <div class="tags"><span class="tag">Hardware</span><span class="tag">Morphology Design</span><span class="tag">CPG-RL</span><span class="tag">Imitation RL</span><span class="tag">MuJoCo</span><span class="tag">Isaac Lab</span><span class="tag">Sim-to-Real</span><span class="tag">Motion Capture</span></div>
               <div class="target">
                 → Co-first-author submission under review at ICRA 2027 · <a href="https://arxiv.org/abs/2609.21185" target="_blank" rel="noopener">arXiv:2609.21185</a><br>
                 → Co-first-author workshop accepted at IROS 2026 (Pittsburgh, Oct)<br>
                 → Co-first-author workshop at ICRA 2026 (Vienna)<br>
                 → Featured at NFL Draft Tech Demo Day 2026<br>
-                → Live demo at Robotics &amp; AI Discovery Day 2026 · <a href="https://www.facebook.com/CMUEngineering/posts/1510226274477777" target="_blank" rel="noopener">featured by CMU College of Engineering</a>
+                → Live demo at Robotics &amp; AI Discovery Day 2026 · <a href="https://www.facebook.com/CMUEngineering/posts/1510226274477777" target="_blank" rel="noopener">featured by CMU College of Engineering</a><br>
+                → Live demo at NSF Foundational Research in Robotics (FRR), Pittsburgh 2026
               </div>
             </div>
           </article>
@@ -280,7 +281,7 @@
             <div class="thumb has-img" style="aspect-ratio: 3/4;"><video src="uploads/MugatuSlowMotion.MOV" autoplay loop muted playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: contain; background-color: var(--card); object-position: center;"></video></div>
             <div class="body">
               <div class="title">Mugatu: A Minimally-Actuated Steerable Biped</div>
-              <div class="meta">Dec 2023 – May 2026 · Robomechanics Lab</div>
+              <div class="meta">Dec 2023 – Sep 2026 · Robomechanics Lab</div>
               <p class="summary">The first steerable single-motor biped. I built a PID attitude controller for directional control and analyzed 2D contact dynamics to optimize gait efficiency and limit-cycle stability.</p>
               <div class="tags"><span class="tag">Hardware</span><span class="tag">PID</span><span class="tag">Limit cycles</span><span class="tag">Drake</span><span class="tag">MuJoCo</span></div>
               <div class="target">
@@ -293,10 +294,10 @@
         <div class="col">
           <article class="proj-card">
             <div class="body">
-              <div class="title">First-Order Reinforcement Learning with Differentiable Simulation</div>
+              <div class="title">FORLAX: First-Order Reinforcement Learning in JAX</div>
               <div class="meta">Sep 2026 – Present · Robomechanics Lab</div>
-              <p class="summary">Responsible for the Unitree G1 humanoid joystick task: converting non-differentiable reward and termination terms into smooth surrogates, tuning first-order training, and benchmarking against zeroth-order baselines (PPO) on sample efficiency and wall-clock time.</p>
-              <div class="tags"><span class="tag">JAX</span><span class="tag">MuJoCo</span><span class="tag">Differentiable Sim</span><span class="tag">First-Order RL</span><span class="tag">Contact Dynamics</span><span class="tag">Parallel Training</span><span class="tag">Unitree G1</span><span class="tag">PPO Baseline</span></div>
+              <p class="summary">Leading the Unitree G1 humanoid velocity-tracking and LEAP Hand in-hand reorientation tasks: converting non-differentiable reward and termination terms into smooth surrogates, tuning first-order training, and benchmarking against zeroth-order baselines (PPO) on sample efficiency and wall-clock time.</p>
+              <div class="tags"><span class="tag">JAX</span><span class="tag">MuJoCo</span><span class="tag">Differentiable Sim</span><span class="tag">First-Order RL</span><span class="tag">Contact Dynamics</span><span class="tag">Parallel Training</span><span class="tag">Unitree G1</span><span class="tag">LEAP Hand</span><span class="tag">PPO Baseline</span></div>
             </div>
           </article>
 
@@ -304,7 +305,7 @@
             <div class="thumb has-img"><img src="assets/mugatu_zippy_drake.png" alt="Mugatu and Zippy simulated in Drake at 0.15 m and 0.025 m leg length" /></div>
             <div class="body">
               <div class="title">Allometric Scaling Laws for Bipedal Robots</div>
-              <div class="meta">Dec 2023 – May 2026 · Robomechanics Lab</div>
+              <div class="meta">Dec 2023 – Sep 2026 · Robomechanics Lab</div>
               <p class="summary">How should a biped's design change with its size? Surveying existing bipedal robots shows mass scales as L<sup>2</sup> rather than the isometric L<sup>3</sup>. Simulating Mugatu (0.15 m legs) and Zippy (0.025 m legs) in Drake across a 60× range of leg lengths, walking speed follows dynamic similarity (v ∝ L<sup>½</sup>), joint torque scales as mL, and feasible foot size scales linearly with leg length.</p>
               <div class="tags"><span class="tag">Drake</span><span class="tag">Scaling Laws</span><span class="tag">Passive Dynamics</span><span class="tag">Mugatu</span><span class="tag">Zippy</span><span class="tag">Simulation</span></div>
               <div class="target">
@@ -345,13 +346,13 @@
       <article class="exp-card">
         <div class="head">
           <div class="title">Physical AI Engineer Intern</div>
-          <div class="dates">Summer 2026</div>
+          <div class="dates">May 2026 – Aug 2026</div>
         </div>
         <div class="meta">Stealth Robotics Startup · Boston, MA</div>
         <ul>
-          <li>Trained a PPO posture-control policy to replace a model-based QP/IK controller; deployed on hardware and iteratively refined with real-world data, validating on outdoor terrain unseen in training (grass, gravel, pavement).</li>
-          <li>Benchmarked reactive, recurrent, and teacher-distilled architectures under one reward and observation contract; direct RL trained the recurrent policy to deployment without the two-stage distillation pipeline.</li>
-          <li>Built the platform full-stack: mechanical and mechatronic design, low-level base controller over CAN, and data pipeline to onboard compute.</li>
+          <li>Trained a PPO posture-control policy to replace a model-based QP/IK controller; deployed on hardware and refined with real-world data, validating on three outdoor terrains unseen in training (grass, gravel, pavement).</li>
+          <li>Benchmarked three architectures (reactive, recurrent, and teacher-distilled) with identical reward and observation spaces; showed that direct RL on the recurrent policy reached deployment without two-stage distillation.</li>
+          <li>Built the platform end-to-end: mechanical and mechatronic design, a low-level base controller over CAN, and a data pipeline to onboard compute.</li>
         </ul>
         <div class="tags"><span class="tag">Mechanical Design</span><span class="tag">Electronics</span><span class="tag">CAN</span><span class="tag">PPO</span><span class="tag">Sim-to-Real</span><span class="tag">Recurrent Policy</span><span class="tag">Teacher Distillation</span><span class="tag">Hardware Deployment</span><span class="tag">Mobile Robot</span></div>
       </article>
@@ -363,8 +364,8 @@
         <article class="proj-card">
           <div class="thumb has-img"><img src="assets/go2w.gif" alt="Go2-W agriculture" /></div>
           <div class="body">
-            <div class="title">Hybrid Locomotion for Go2-W in Agriculture</div>
-            <div class="meta">Jan 2026 – Sep 2026 · Robotics &amp; AI for Agriculture · Prof. George Kantor &amp; Francisco Yandun</div>
+            <div class="title">Hybrid Locomotion for Go2-W in Agricultural Environments</div>
+            <div class="meta">Jan 2026 – Sep 2026 · Robotics &amp; AI for Agriculture · Prof. George Kantor &amp; Dr. Francisco Yandun</div>
             <p class="summary">A PPO policy in Isaac Lab for adaptive wheel-leg switching on the Unitree Go2-W, trained on procedurally-generated off-road terrains with multi-crop row constraints.</p>
             <div class="tags"><span class="tag">PPO</span><span class="tag">Isaac Lab</span><span class="tag">Wheel-Leg</span><span class="tag">Rough Terrain</span></div>
           </div>
@@ -385,7 +386,7 @@
           <div class="body">
             <div class="title">Sim-to-Real RL: Autonomous Quadrotor Landing</div>
             <div class="meta">Aug 2025 – Jan 2026 · Robot Learning · Prof. Guanya Shi</div>
-            <p class="summary">PPO with 4096 parallel agents and an exponentially-scaled curriculum for precision landing on moving targets. 96% success rate on Crazyflie 2.1+ hardware with &lt;4 cm error.</p>
+            <p class="summary">PPO with 4096 parallel agents and an exponentially-scaled curriculum for precision landing on moving targets. 96% success rate on Crazyflie 2.1+ hardware with &lt;2 cm error.</p>
             <div class="tags"><span class="tag">PPO</span><span class="tag">Curriculum Learning</span><span class="tag">Sim-to-Real</span><span class="tag">Isaac Lab</span><span class="tag">Crazyflie</span></div>
           </div>
         </article>
@@ -475,7 +476,7 @@
     </section>
 
     <footer>
-      <span>© Ben Gu · Last updated September 2026</span>
+      <span>© Ben Gu · Last updated October 2026</span>
       <span class="mono">BUILT IN PITTSBURGH, PA</span>
     </footer>
   </main>

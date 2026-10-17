@@ -155,7 +155,7 @@
     <header class="cv-head">
       <div>
         <h1>Ben Gu</h1>
-        <div class="sub">Curriculum Vitae · Updated September 2026</div>
+        <div class="sub">Curriculum Vitae · Updated October 2026</div>
       </div>
       <div class="contact">
         <div><a href="#" data-user="bengu" data-domain="cs.cmu.edu">bengu [at] cs.cmu.edu</a></div>
@@ -186,25 +186,25 @@
     <div class="entry">
       <div class="row">
         <div class="title">Physical AI Engineer Intern</div>
-        <div class="dates">Summer 2026</div>
+        <div class="dates">May 2026 – Aug 2026</div>
       </div>
       <div class="role">Stealth Robotics Startup · Boston, MA</div>
       <ul>
-        <li>Trained a PPO posture-control policy to replace a model-based QP/IK controller; deployed on hardware and iteratively refined with real-world data, validating on outdoor terrain unseen in training (grass, gravel, pavement).</li>
-        <li>Benchmarked reactive, recurrent, and teacher-distilled architectures under one reward and observation contract; direct RL trained the recurrent policy to deployment without the two-stage distillation pipeline.</li>
-        <li>Built the platform full-stack: mechanical and mechatronic design, low-level base controller over CAN, and data pipeline to onboard compute.</li>
+        <li>Trained a PPO posture-control policy to replace a model-based QP/IK controller; deployed on hardware and refined with real-world data, validating on three outdoor terrains unseen in training (grass, gravel, pavement).</li>
+        <li>Benchmarked three architectures (reactive, recurrent, and teacher-distilled) with identical reward and observation spaces; showed that direct RL on the recurrent policy reached deployment without two-stage distillation.</li>
+        <li>Built the platform end-to-end: mechanical and mechatronic design, a low-level base controller over CAN, and a data pipeline to onboard compute.</li>
       </ul>
     </div>
 
     <h2 class="sect">Research</h2>
     <div class="entry">
       <div class="row">
-        <div class="title">First-Order Reinforcement Learning with Differentiable Simulation</div>
+        <div class="title">FORLAX: First-Order Reinforcement Learning in JAX</div>
         <div class="dates">Sep 2026 – Present</div>
       </div>
-      <div class="role">Research Assistant, Robomechanics Lab · PI: Prof. Aaron Johnson</div>
+      <div class="role">Student Researcher, Robomechanics Lab · PI: Prof. Aaron Johnson</div>
       <ul>
-        <li>Responsible for the Unitree G1 humanoid joystick task within a first-order RL pipeline built on differentiable simulation in JAX/MuJoCo.</li>
+        <li>Leading the Unitree G1 humanoid velocity-tracking and LEAP Hand in-hand reorientation tasks within a first-order RL pipeline built on differentiable simulation in JAX/MuJoCo.</li>
         <li>Converting non-differentiable reward and termination terms into smooth surrogates and tuning first-order training.</li>
         <li>Benchmarking against zeroth-order baselines (PPO) on sample efficiency and wall-clock time.</li>
       </ul>
@@ -213,24 +213,23 @@
     <div class="entry">
       <div class="row">
         <div class="title">Self-Stabilizing Penguin-inspired Bipedal Robot for Low-Friction Terrain</div>
-        <div class="dates">May 2025 – Present</div>
+        <div class="dates">Aug 2025 – Present</div>
       </div>
-      <div class="role">Research Assistant, Robomechanics Lab · PI: Prof. Aaron Johnson</div>
+      <div class="role">Student Researcher, Robomechanics Lab · PI: Prof. Aaron Johnson</div>
       <ul>
-        <li>Modeled and fabricated a 3D model of a 5-DOF bipedal robot in SolidWorks, implementing a crank-link leg extension system capturing macaroni penguin biological inertial properties for energy-efficient waddling.</li>
-        <li>Developed a CPG-RL framework to create stable, biomimetic walking gaits; integrated closed-chain constraints to optimize locomotion on low-friction, inclined surfaces.</li>
-        <li>Developed digital twins in MuJoCo and NVIDIA Isaac Lab to validate contact-rich dynamics and closed-loop control policies in challenging environments.</li>
-        <li>Developed an experimental testbed for evaluating locomotion; conducted motion-capture experiments on viscous and slippery substrates.</li>
+        <li>Designed (SolidWorks) and built a 5-DOF penguin-inspired biped with a crank-slider leg extension and adjustable center-of-mass height; modeled its closed-chain leg mechanism in MuJoCo and NVIDIA Isaac Lab.</li>
+        <li>Swept gait parameters across four friction coefficients in MuJoCo and validated on hardware with motion capture: penguin-style torso-over-stance-leg motion with a high COM was 1.8× faster with 44% lower cost of transport than an upright human-like gait at μ = 0.12, reversing at μ = 0.45.</li>
+        <li>Extended the study to closed-loop control: trained CPG-RL and imitation RL policies in Isaac Lab that climb 6° slopes at μ = 0.1 in simulation.</li>
       </ul>
-      <div class="publ">→ Co-first author, "When to Waddle" · Under review, ICRA 2027 (Seoul) · <a href="https://arxiv.org/abs/2609.21185" target="_blank" rel="noopener">arXiv:2609.21185</a> · Co-first-author workshop, ICRA 2026 (Vienna) · Co-first-author workshop, IROS 2026 (Pittsburgh) · Live demo, Robotics &amp; AI Discovery Day 2026</div>
+      <div class="publ">→ Co-first author, "When to Waddle" · Under review, ICRA 2027 (Seoul) · <a href="https://arxiv.org/abs/2609.21185" target="_blank" rel="noopener">arXiv:2609.21185</a> · Co-first-author workshop, ICRA 2026 (Vienna) · Co-first-author workshop, IROS 2026 (Pittsburgh) · Live demos, NFL Draft Tech Day 2026, Robotics &amp; AI Discovery Day 2026, and NSF Foundational Research in Robotics (FRR) 2026</div>
     </div>
 
     <div class="entry">
       <div class="row">
         <div class="title">Design and Control for Mugatu: A Minimally-Actuated Steerable Bipedal Robot</div>
-        <div class="dates">Dec 2023 – May 2026</div>
+        <div class="dates">Dec 2023 – Sep 2026</div>
       </div>
-      <div class="role">Research Assistant, Robomechanics Lab · PI: Prof. Aaron Johnson</div>
+      <div class="role">Student Researcher, Robomechanics Lab · PI: Prof. Aaron Johnson</div>
       <ul>
         <li>Engineered a PID attitude controller for the first steerable single-motor biped, enabling directional control.</li>
         <li>Conducted 2D contact dynamics analysis in MATLAB to investigate limit cycle stability and optimize gait efficiency.</li>
@@ -242,9 +241,9 @@
     <div class="entry">
       <div class="row">
         <div class="title">Allometric Scaling Laws for Bipedal Robots</div>
-        <div class="dates">Dec 2023 – May 2026</div>
+        <div class="dates">Dec 2023 – Sep 2026</div>
       </div>
-      <div class="role">Research Assistant, Robomechanics Lab · PI: Prof. Aaron Johnson</div>
+      <div class="role">Student Researcher, Robomechanics Lab · PI: Prof. Aaron Johnson</div>
       <ul>
         <li>How should a biped's design change with its size? A survey of existing bipedal robots shows mass scales as L<sup>2</sup> rather than the isometric L<sup>3</sup>.</li>
         <li>Mugatu (0.15 m legs) and Zippy (0.025 m legs) simulated in Drake across a 60× range of leg lengths: walking speed follows dynamic similarity (v ∝ L<sup>½</sup>), joint torque scales as mL, and feasible foot size scales linearly with leg length.</li>
@@ -255,10 +254,10 @@
     <h2 class="sect">Projects</h2>
     <div class="entry">
       <div class="row">
-        <div class="title">Hybrid Locomotion for Unitree Go2-W in Agriculture Environments</div>
+        <div class="title">Hybrid Locomotion for Unitree Go2-W in Agricultural Environments</div>
         <div class="dates">Jan 2026 – Sep 2026</div>
       </div>
-      <div class="role">Course Project · Robotics &amp; AI for Agriculture · Profs. George Kantor &amp; Francisco Yandun</div>
+      <div class="role">Course Project · Robotics &amp; AI for Agriculture · Prof. George Kantor &amp; Dr. Francisco Yandun</div>
       <ul>
         <li>Implemented a PPO-based RL policy in NVIDIA Isaac Lab for adaptive wheel-leg switching on the Go2-W.</li>
         <li>Trained robust navigation in procedurally generated off-road terrains with multi-crop row constraints.</li>
@@ -284,7 +283,7 @@
       </div>
       <div class="role">Course Project · Robot Learning · Prof. Guanya Shi</div>
       <ul>
-        <li>Synthesized a PPO controller with 4096 parallel agents; designed a curriculum-learning scheme with exp reward scaling for precision landing on moving targets (&lt;4 cm error).</li>
+        <li>Synthesized a PPO controller with 4096 parallel agents; designed a curriculum-learning scheme with exp reward scaling for precision landing on moving targets (&lt;2 cm error).</li>
         <li>Mitigated the sim-to-real gap via domain randomization — 96% success rate on Crazyflie 2.1+ hardware.</li>
       </ul>
     </div>
@@ -333,17 +332,25 @@
 
     <h2 class="sect">Skills</h2>
     <div class="kv">
-      <div class="k">Programming</div>
+      <div class="k">Languages</div>
       <div class="v">
-        <span>Python</span><span>C++</span><span>C</span><span>MATLAB</span><span>Julia</span><span>Assembly</span><span>Bash</span><span>LaTeX</span>
+        <span>Python</span><span>C++</span><span>C</span><span>MATLAB</span><span>Julia</span>
       </div>
-      <div class="k">Robotics &amp; Sim</div>
+      <div class="k">Embedded</div>
       <div class="v">
-        <span>Isaac Lab</span><span>MuJoCo</span><span>Drake</span><span>MJPC</span><span>Dojo</span><span>ROS2</span><span>PPO</span><span>DQN</span><span>CPG</span><span>LQR</span><span>MPC</span><span>MPPI</span>
+        <span>Arduino</span><span>Raspberry Pi</span><span>Dynamixel SDK</span><span>CAN</span><span>IMU</span>
       </div>
-      <div class="k">Design &amp; Fab</div>
+      <div class="k">Tools</div>
       <div class="v">
-        <span>SolidWorks</span><span>AutoCAD</span><span>Blender</span><span>OnShape</span><span>ANSYS / FEA</span><span>GibbsCam</span><span>MeshLab</span><span>CNC</span><span>Mill</span><span>Lathe</span><span>Laser Cutter</span><span>Water Jet</span><span>3D Printing</span>
+        <span>MuJoCo</span><span>Isaac Lab</span><span>Drake</span><span>PyBullet</span><span>Dojo</span><span>MJPC</span><span>PyTorch</span><span>JAX</span><span>ROS 2</span><span>Quad-SDK</span>
+      </div>
+      <div class="k">Methods</div>
+      <div class="v">
+        <span>PPO</span><span>SAC</span><span>DQN</span><span>Differentiable Simulation</span><span>MPC</span><span>MPPI</span><span>LQR</span><span>CPG</span>
+      </div>
+      <div class="k">Mechanical</div>
+      <div class="v">
+        <span>SolidWorks</span><span>Onshape</span><span>Blender</span><span>ANSYS / FEA</span><span>CNC</span><span>Mill</span><span>Lathe</span><span>Water Jet</span><span>Laser Cutting</span><span>3D Printing</span>
       </div>
     </div>
 
@@ -358,7 +365,7 @@
       <div>Legged Systems</div>
     </div>
 
-    <footer>Ben Gu · CV · September 2026 · Pittsburgh, PA</footer>
+    <footer>Ben Gu · CV · October 2026 · Pittsburgh, PA</footer>
   </div>
 <script>
 /* Construct email links at runtime so scrapers don't harvest the address. */
