@@ -172,6 +172,12 @@
   .media-tile { background: var(--card); border: 1px solid var(--line); position: relative; overflow: hidden; width: fit-content; max-width: 100%; margin: 0 auto; }
   .media-tile img, .media-tile video { display: block; width: auto; height: auto; max-width: 100%; max-height: 480px; }
   .media-item { margin: 0; }
+  .media-tile.pending {
+    width: 100%; aspect-ratio: 16/9;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted);
+    background-image: repeating-linear-gradient(45deg, transparent 0 6px, rgba(23,22,21,0.04) 6px 7px);
+  }
   .media-item figcaption { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
 
   footer { grid-column: 1 / -1; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -329,6 +335,7 @@
 
     <section>
       <h2>News</h2>
+      <div class="news-row"><div class="date">Nov 2026</div><div>First place in a team robot-car competition with a <a href="https://github.com/BenGu0530/simple-umi-gripper" target="_blank" rel="noopener">UMI-style pipe gripper and parallelogram lift</a> — CadQuery CAD, 3D-printed, with a MuJoCo twin.</div></div>
       <div class="news-row"><div class="date">Sep 2026</div><div>"Pengu: A Bipedal Robot for Low-Friction Mobility" accepted to the IROS 2026 workshop on Miniature Multiterrain and Multimodal Locomotion: from Biology to Robotics. Presenting in Pittsburgh this October.</div></div>
       <div class="news-row"><div class="date">Sep 2026</div><div><a href="https://arxiv.org/abs/2609.21185" target="_blank" rel="noopener">"When to Waddle: A Comparative Study of Bipedal Torso-Stabilization on Low-Friction Surfaces"</a> submitted to ICRA 2027 and posted to arXiv.</div></div>
       <div class="news-row"><div class="date">Sep 2026</div><div><a href="https://arxiv.org/abs/2603.22560" target="_blank" rel="noopener">"Allometric Scaling Laws for Bipedal Robots"</a> revised and submitted to ICRA 2027.</div></div>
@@ -361,6 +368,20 @@
     <section>
       <h2>Projects</h2>
       <div class="proj-grid">
+        <article class="proj-card">
+          <div class="thumb has-img"><img src="assets/umi_gripper.png" alt="CAD render of the two-servo robot car with the rack-and-pinion gripper holding a flanged pipe at the low position" /></div>
+          <div class="body">
+            <div class="title">UMI-Style Pipe Gripper &amp; Parallelogram Lift</div>
+            <div class="meta">Nov 2026 · Team robot-car competition · 1st place</div>
+            <p class="summary">A rack-and-pinion gripper and parallelogram lift for a two-servo robot car, built to pick up a 3-inch flanged pipe and stack it on another. Fully parametric CadQuery CAD (10 printed parts, ≈83 g), a rear ballast box sized from a tipping analysis, and a MuJoCo twin that speaks the car's ESP32 packet protocol.</p>
+            <div class="tags"><span class="tag">CadQuery</span><span class="tag">3D Printing</span><span class="tag">Mechanism Design</span><span class="tag">MuJoCo</span><span class="tag">Servos</span><span class="tag">Rack &amp; Pinion</span></div>
+            <div class="target">
+              → 1st place<br>
+              → <a href="https://github.com/BenGu0530/simple-umi-gripper" target="_blank" rel="noopener">CAD, STLs, BOM and sim on GitHub</a>
+            </div>
+          </div>
+        </article>
+
         <article class="proj-card">
           <div class="thumb has-img"><img src="assets/go2w.gif" alt="Go2-W agriculture" /></div>
           <div class="body">
@@ -460,6 +481,10 @@
         <figure class="media-item">
           <div class="media-tile has-media"><video src="uploads/penguNFL.mov" autoplay loop muted playsinline preload="metadata"></video></div>
           <figcaption>Pengu walking on hardware. Live demo at the NFL Draft Tech Demo Day Pittsburgh 2026.</figcaption>
+        </figure>
+        <figure class="media-item">
+          <div class="media-tile pending"><span>REAL-WORLD DEMO · COMING SOON</span></div>
+          <figcaption>The pipe gripper picking and stacking on the real car — video coming soon.</figcaption>
         </figure>
       </div>
     </section>
